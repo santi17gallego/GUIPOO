@@ -1,0 +1,27 @@
+admin 567 admin 567 permisos Administrador-RegistrarUsuario Administrador-ConsultarPermisos Administrador-ConsultarTodosLosPermisos Administrador-AgregarPermisos Administrador-EliminarPermisos Administrador-EliminarUsuario
+instructor 444 xxx 444 12.0 12.0 12.0 m 123 permisos Instructor-ConsultarEstadoActual Instructor-ConsultarImc Instructor-ConsultarPesoIdeal Instructor-ConsultarTmb Instructor-ConsultarRutina Instructor-ConsultarDieta
+vendedor 4545 Pedro 4545 permisos Vendedor-RegistrarProducto Vendedor-ConsultarInventario Vendedor-RegistrarEvento
+instructor qwewq weewr wer permisos Instructor-ConsultarEstadoActual Instructor-ConsultarImc Instructor-ConsultarPesoIdeal Instructor-ConsultarTmb Instructor-ConsultarRutina Instructor-ConsultarDieta
+instructor dff df df permisos Instructor-ConsultarEstadoActual Instructor-ConsultarImc Instructor-ConsultarPesoIdeal Instructor-ConsultarTmb Instructor-ConsultarRutina Instructor-ConsultarDieta
+vendedor trtt ttt tt permisos
+vendedor eee eee eee permisos
+vendedor 8888 111111 2131 permisos Vendedor-RegistrarProducto Vendedor-ConsultarInventario Vendedor-RegistrarVenta Vendedor-ConsultarVentas
+vendedor 000 Andres 000 permisos Vendedor-RegistrarProducto Vendedor-ConsultarInventario *-RegistrarSugerencia
+cliente 1001447451 juan juan09 16 85.0 180.0 masculino 4325645 permisos Cliente-ConsultarPesoIdeal Cliente-ConsultarCaloriasQuemadas Cliente-InscribirEvento
+cliente 4 0 4 4 4.0 4.0 4 4 permisos Cliente-ConsultarPesoIdeal Cliente-ConsultarCaloriasQuemadas Cliente-InscribirEvento
+cliente 1112 Santi 1112 17 123.0 1.8 m 123 permisos Cliente-ConsultarPesoIdeal Cliente-ConsultarCaloriasQuemadas Cliente-InscribirEvento
+cliente 1112 Santi 1112 19 68.0 1.68 m 123 permisos Cliente-ConsultarPesoIdeal Cliente-ConsultarCaloriasQuemadas Cliente-InscribirEvento
+cliente 1112 Santi 1112 19 68.0 1.68 m 123 permisos Cliente-ConsultarPesoIdeal Cliente-ConsultarCaloriasQuemadas Cliente-InscribirEvento
+cliente 123 sasa 123 123 123.0 123.0 123 123 permisos Cliente-ConsultarPesoIdeal Cliente-ConsultarCaloriasQuemadas Cliente-InscribirEvento
+cliente 123 asd 123 123 123.0 123.0 123 123 permisos Cliente-ConsultarPesoIdeal Cliente-ConsultarCaloriasQuemadas Cliente-InscribirEvento
+instructor 983 Pedro r129 permisos Instructor-ConsultarEstadoActual Instructor-ConsultarImc Instructor-ConsultarTmb Instructor-ConsultarRutina Instructor-ConsultarDieta
+cliente asd asd as 123 12.0 1.45 m asd permisos Cliente-ConsultarPesoIdeal Cliente-ConsultarCaloriasQuemadas Cliente-InscribirEvento
+cliente 222 Santiago 222 19 70.0 1.7 m 222 permisos Cliente-ConsultarPesoIdeal Cliente-ConsultarCaloriasQue0madas Cliente-InscribirEvento
+vendedor 6666 tttt 6666 permisos Vendedor-ConsultarInventario Vendedor-RegistrarProducto Vendedor-RegistrarEvento
+vendedor 789 Leonor r129 permisos Vendedor-ConsultarInventario Vendedor-RegistrarProducto Vendedor-RegistrarEvento
+cliente 2567 Pablo r129 24 65.0 1.68 m 302438 permisos Cliente-ConsultarPesoIdeal Cliente-ConsultarCaloriasQuemadas Cliente-InscribirEvento *-RegistrarSugerencia
+cliente 1234 Juanito r435 21 56.0 1.67 m 3456 permisos Cliente-ConsultarPesoIdeal Cliente-ConsultarCaloriasQuemadas Cliente-InscribirEvento *-RegistrarSugerencia
+instructor ooo oo oo permisos Instructor-ConsultarPesoIdeal Instructor-ConsultarImc Instructor-ConsultarTmb Instructor-ConsultarEstadoActual Instructor-ConsultarRutina
+cliente 999 Nelson 999 40 80.0 1.8 m 78978 permisos Cliente-ConsultarPesoIdeal Cliente-ConsultarCaloriasQuemadas Cliente-InscribirEvento *-RegistrarSugerencia
+cliente yyy yyyy yyy 56 56.0 56.0 m yyy permisos Cliente-ConsultarPesoIdeal Cliente-ConsultarCaloriasQuemadas Cliente-InscribirEvento *-RegistrarSugerencia
+cliente 111 Juan 111 21 80.0 1.8 m 43424 permisos Cliente-ConsultarPesoIdeal Cliente-InscribirEvento Cliente-ConsultarCaloriasQuemadas *-RegistrarSugerencia

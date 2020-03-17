@@ -1,0 +1,6 @@
+Rumba Lunes-8:30 2 clientes 765-Jairo 111-Juan
+Fultbol Lunes-8:30 2 clientes 765-Jairo 111-Juan
+xxx xxx 4 clientes 111-Juan
+yyy yyy 5 clientes 111-Juan 111-Juan
+Ciclas Lunes-8:30 10 clientes 765-Jairo 111-Juan 111-Juan 1001447451-juan 1001468592-Paolita 111-Juan 111-Juan yyy-yyyy
+Basquet Lunes-8:30 2 clientes 111-Juan 111-Juan
