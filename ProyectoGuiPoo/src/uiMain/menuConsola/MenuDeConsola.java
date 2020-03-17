@@ -77,6 +77,6 @@ public class MenuDeConsola {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        lanzarMenu();
+        //lanzarMenu();
     }
 }

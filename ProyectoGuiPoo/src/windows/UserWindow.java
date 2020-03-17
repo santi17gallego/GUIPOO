@@ -2,6 +2,7 @@ package windows;
 
 import gestorAplicacion.paquete1.Cliente;
 import gestorAplicacion.paquete1.Instructor;
+import gestorAplicacion.paquete1.Usuario;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -21,9 +22,11 @@ import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
+import uiMain.menuConsola.MenuDeConsola;
 
 public class UserWindow extends Application {
 
@@ -31,22 +34,24 @@ public class UserWindow extends Application {
     Button archivobtn;
     Button procesosbtn;
     Button ayudabtn;
-    
+
     //slg
     Button calcularPesoIdealbtn;
     Button enviarbtn;
-    
-    Label informacion;     
-    
+
+    Label informacion;
+
     TextField peso;
-    
+
     public TextArea resultadoPesoIdeal;
-    
+
     int pesoEntero;
+
     @Override
     public void start(Stage userStage) {
 
         BorderPane root = new BorderPane();
+        
         root.setPadding(new Insets(10, 10, 10, 10));
         root.setBorder(new Border(new BorderStroke(Color.BLACK,
                 BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
@@ -106,7 +111,17 @@ public class UserWindow extends Application {
 
         @Override
         public void handle(ActionEvent e) {
-            centro.setCenter(new Label("kjashdfkjsdkfjaskdjfhaksjdhfkasjhdf"));
+//            Usuario user = MenuDeConsola.sesion;
+            Usuario user = new Cliente("1193", "Slg", "1193", 19, 68, 170, "m", "541");
+            FieldPanel fieldPanel = null;
+            if (user instanceof Cliente) {
+                Cliente cliente = (Cliente) user;
+                String criterios[] = {"Cédula", "Nombre", "Contraseña", "Peso", "Estatura", "Edad", "Genero", "Telefono"};
+                String valores[] = {cliente.getCedula(), cliente.getNombre(), cliente.getContrasena(),String.valueOf(cliente.getPeso()), String.valueOf(cliente.getEstatura()), String.valueOf(cliente.getEdad()), cliente.getGenero(), cliente.getTelefono()};
+                boolean estado[] = {false, true, true, true, true, true, true, true,};
+                fieldPanel = new FieldPanel("Datos", criterios, "Valores", valores, estado);
+            }
+            centro.setCenter(fieldPanel.getGrid());
         }
     }
 
@@ -120,14 +135,13 @@ public class UserWindow extends Application {
             calcularPesoIdealbtn = new Button("Calcular peso ideal");
             Button imprimirAlgobtn = new Button("Calcular IMC");
             opciones.getChildren().addAll(imprimirAlgobtn, new Button("TMB"), new Button("Dieta"), calcularPesoIdealbtn);
-            
+
             calcularPesoIdealbtn.setOnAction(new HandlerCalcularPesoIdeal());
             imprimirAlgobtn.setOnAction(new HandlerImprimirAlgo());
-            
+
             centro.setCenter(opciones);
-            
+
             //Slg
-            
         }
     }
 
@@ -138,13 +152,13 @@ public class UserWindow extends Application {
             JOptionPane.showMessageDialog(null, "Descripcion del mensaje", "Titulo del mensaje", JOptionPane.PLAIN_MESSAGE);
         }
     }
-    
+
     //Slg
-    class HandlerCalcularPesoIdeal implements EventHandler<ActionEvent>{
+    class HandlerCalcularPesoIdeal implements EventHandler<ActionEvent> {
 
         @Override
         public void handle(ActionEvent event) {
-            
+
             FlowPane calcularPesoIdeal = new FlowPane();
             calcularPesoIdeal.setVgap(20);
             calcularPesoIdeal.setHgap(20);
@@ -154,28 +168,26 @@ public class UserWindow extends Application {
             calcularPesoIdealbtn = new Button("Calcular peso ideal");
             resultadoPesoIdeal = new TextArea();
             calcularPesoIdeal.getChildren().addAll(informacion, peso, enviarbtn, resultadoPesoIdeal);
-            
+
             centro.setCenter(calcularPesoIdeal);
-            
-            
+
             enviarbtn.setOnAction(new HandlerEnviarPeso());
-            
-            
+
         }
     }
-    
-    class HandlerEnviarPeso implements EventHandler<ActionEvent>{
+
+    class HandlerEnviarPeso implements EventHandler<ActionEvent> {
 
         @Override
         public void handle(ActionEvent event) {
             String pesoDigitado = peso.getText();
             pesoEntero = Integer.parseInt(pesoDigitado);
-            String pesoString = String.valueOf((pesoEntero)-100);
+            String pesoString = String.valueOf((pesoEntero) - 100);
             resultadoPesoIdeal.appendText(pesoString);
         }
     }
-    
-    class HandlerImprimirAlgo implements EventHandler<ActionEvent>{
+
+    class HandlerImprimirAlgo implements EventHandler<ActionEvent> {
 
         @Override
         public void handle(ActionEvent event) {
@@ -188,16 +200,15 @@ public class UserWindow extends Application {
             calcularPesoIdealbtn = new Button("Calcular peso ideal");
             resultadoPesoIdeal = new TextArea();
             imprimirAlgo.getChildren().addAll(informacion, peso, enviarbtn, resultadoPesoIdeal);
-            
+
             centro.setCenter(imprimirAlgo);
-            
-            
+
             enviarbtn.setOnAction(new HandlerEnviarAlgo());
         }
-        
+
     }
-    
-    class HandlerEnviarAlgo implements EventHandler<ActionEvent>{
+
+    class HandlerEnviarAlgo implements EventHandler<ActionEvent> {
 
         @Override
         public void handle(ActionEvent event) {
@@ -205,5 +216,4 @@ public class UserWindow extends Application {
             resultadoPesoIdeal.appendText(slg.imprimiendoAlgo());
         }
     }
-    
 }
