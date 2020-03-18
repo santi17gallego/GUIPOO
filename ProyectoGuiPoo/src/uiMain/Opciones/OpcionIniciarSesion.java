@@ -17,9 +17,9 @@ public class OpcionIniciarSesion extends OpcionDeMenu {
         Object [] lista =Usuario.iniciarSesion(cedula, contra);        
         if(lista== null){
             System.out.println("Error al iniciar sesión");
-            MenuDeConsola.lanzarMenu();
+//            MenuDeConsola.lanzarMenu();
         }else{
-            MenuDeConsola.sesion=(Usuario)lista[0];
+//            MenuDeConsola.sesion=(Usuario)lista[0];
             MenuDeConsola.crearMenu((String [])lista[1]);
         }
     }

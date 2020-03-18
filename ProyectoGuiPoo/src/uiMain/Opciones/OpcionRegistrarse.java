@@ -33,9 +33,9 @@ public class OpcionRegistrarse extends OpcionDeMenu {
         boolean accion= Cliente.registrarse(new Cliente(cedula, nombre, contra, edad, peso, estatura, genero, telefono));
         if(!accion){
             System.out.println("Error, no se pudo realizar la acción.");
-            MenuDeConsola.lanzarMenu();
+//            MenuDeConsola.lanzarMenu();
         }else{
-            MenuDeConsola.sesion=new Cliente(nombre, cedula, contra);
+//            MenuDeConsola.sesion=new Cliente(nombre, cedula, contra);
             String lista[]= {"Cliente-ConsultarPesoIdeal", "Cliente-ConsultarCaloriasQuemadas", "Cliente-InscribirEvento", "*-RegistrarSugerencia"};
             MenuDeConsola.crearMenu(lista);
         }

@@ -1,8 +1,10 @@
 package windows;
 
+import gestorAplicacion.paquete1.Administrador;
 import gestorAplicacion.paquete1.Cliente;
 import gestorAplicacion.paquete1.Instructor;
 import gestorAplicacion.paquete1.Usuario;
+import java.util.ArrayList;
 import javafx.geometry.Insets;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -16,20 +18,18 @@ import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 import uiMain.menuConsola.MenuDeConsola;
 
-/**
- *
- * @author Juan Camilo Hoyos
- */
 public class BodyArt extends Application {
-    BorderPane centro;
-    Button archivobtn;
-    Button procesosbtn;
-    Button ayudabtn;
 
+    private BorderPane centro;
+    private Button archivobtn;
+    private Button procesosbtn;
+    private Button ayudabtn;
+    private Button salirbtn = new Button("Salir");
     //slg
-    Button calcularPesoIdealbtn;
-    Button enviarbtn;
-
+    private Button calcularPesoIdealbtn;
+    private Button enviarbtn;
+    GridPane migridpane2 = new GridPane();
+    Button registrarsebtn = new Button("Registrarse");
     Label informacion;
 
     TextField peso;
@@ -37,21 +37,56 @@ public class BodyArt extends Application {
     public TextArea resultadoPesoIdeal;
 
     int pesoEntero;
-    
-    
+
     //Login
-    
-    
-    Button ingresarbt;
+    private Button ingresarbtn = new Button("Ingresar");
     TextField usuariotf;
     TextField contraseñatf;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        primaryStage.setTitle("Body Art");
+        Scene primeraescena = escenaInicial();
+
+        primaryStage.setScene(primeraescena);
+        primaryStage.show();
+
+        ingresarbtn.setOnAction((event) -> {
+            String usuario = usuariotf.getText();
+            String contrasena = contraseñatf.getText();
+            Object array[] = Usuario.iniciarSesion(usuario, contrasena);
+            if (array == null) {
+                new Alert(Alert.AlertType.ERROR, "Error al realizar la acción").show();
+            } else {
+                new MenuDeConsola().setSesion((Usuario) array[0]);
+                MenuDeConsola.crearMenu((String[]) array[1]);
+                primaryStage.setScene(escenaUsuario());
+            }
+        });
+        
+        registrarsebtn.setOnAction((event) -> {
+                String criterios[] = {"Cédula", "Nombre", "Contraseña", "Peso", "Estatura", "Edad", "Genero", "Telefono"};
+                String valores[] = null;
+                boolean estado[] = null;
+                FieldPanel fieldPanel = new FieldPanel("Datos", criterios, "Valores", valores, estado);
+                migridpane2.add(fieldPanel.getGrid(),0,1);
+        });
+        
+        salirbtn.setOnAction((event) -> {
+            primaryStage.setScene(escenaInicial());
+
+        });
+
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    private Scene escenaInicial() {
         BorderPane miborderpane = new BorderPane();
         miborderpane.setBorder(new Border(new BorderStroke(Color.BLACK,
                 BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-        primaryStage.setTitle("");
 
         miborderpane.setPadding(new Insets(10, 10, 10, 10));
         Button salirbtn = new Button("salir");
@@ -77,7 +112,7 @@ public class BodyArt extends Application {
         BorderPane organizador = new BorderPane();
         miborderpane.setCenter(organizador);
 
-        GridPane migridpane2 = new GridPane();  //segundo panel creado izquierdo.
+          //segundo panel creado izquierdo.
         migridpane2.setPadding(new Insets(10, 10, 10, 10));
         GridPane migridpane3 = new GridPane(); //segundo panel creado derecho.
         migridpane3.setPadding(new Insets(10, 10, 10, 10));
@@ -107,15 +142,14 @@ public class BodyArt extends Application {
 
         //Gridpane2_2
         usuariotf = new TextField();
-        contraseñatf = new TextField();
-        ingresarbt = new Button("Ingresar");
-        ingresarbt.setOnAction(new HandlerIngresar());
-        Button registrarsebt = new Button("Registrarse");
+        contraseñatf = new PasswordField();
+
+        
 
         migridpane2_2.add(usuariotf, 0, 0);
         migridpane2_2.add(contraseñatf, 1, 0);
-        migridpane2_2.add(ingresarbt, 0, 1);
-        migridpane2_2.add(registrarsebt, 0, 3);
+        migridpane2_2.add(ingresarbtn, 0, 1);
+        migridpane2_2.add(registrarsebtn, 0, 3);
 
         migridpane2_2.setHgap(3);
         migridpane2_2.setVgap(3);
@@ -140,26 +174,21 @@ public class BodyArt extends Application {
         miborderpane3_1.setCenter(new Label("Aqui va una imagen"));
         miborderpane3_1.setPadding(new Insets(10, 10, 10, 10));
         miborderpane3_2.setPadding(new Insets(10, 10, 10, 10));
-        //  
-        Scene primeraescena = new Scene(miborderpane, 550, 400);
-        primaryStage.setScene(primeraescena);
-        primaryStage.show();
-
-    }
-
-    public static void main(String[] args) {
-        launch(args);
+        return new Scene(miborderpane, 550, 400);
     }
     
-    public void StageUser(){
-        Stage stage= new Stage();
-        BorderPane root = new BorderPane();
+    public Scene escenaRegistrarse(){
         
+        return null;
+    }
+    
+    public Scene escenaUsuario() {
+        BorderPane root = new BorderPane();
+
         root.setPadding(new Insets(10, 10, 10, 10));
         root.setBorder(new Border(new BorderStroke(Color.BLACK,
                 BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-        Label userlb = new Label("Usuario: Jaime Guzmán");
-        Button salirbtn = new Button("Salir");
+        Label userlb = new Label("Usuario: " + new MenuDeConsola().getSesion().getNombre());
 
         BorderPane root3 = new BorderPane();
         root3.setLeft(userlb);
@@ -171,7 +200,27 @@ public class BodyArt extends Application {
 
         GridPane root2 = new GridPane();
         archivobtn = new Button("Archivo");
-        archivobtn.setOnAction(new HandlerArchivo());
+
+        archivobtn.setOnAction((event) -> {
+            Usuario user = new MenuDeConsola().getSesion();
+//            Usuario user = new Cliente("1193", "Slg", "1193", 19, 68, 170, "m", "541");
+            FieldPanel fieldPanel = null;
+            if (user instanceof Cliente) {
+                Cliente cliente = (Cliente) user;
+                String criterios[] = {"Cédula", "Nombre", "Contraseña", "Peso", "Estatura", "Edad", "Genero", "Telefono"};
+                String valores[] = {cliente.getCedula(), cliente.getNombre(), cliente.getContrasena(), String.valueOf(cliente.getPeso()), String.valueOf(cliente.getEstatura()), String.valueOf(cliente.getEdad()), cliente.getGenero(), cliente.getTelefono()};
+                boolean estado[] = {false, true, true, true, true, true, true, true,};
+                fieldPanel = new FieldPanel("Datos", criterios, "Valores", valores, estado);
+            } else if (user instanceof Administrador) {
+//                Administrador admin = (Administrador) user;
+                String criterios[] = {"Cédula", "Nombre", "Contraseña"};
+                String valores[] = {user.getCedula(), user.getNombre(), user.getContrasena()};
+                boolean estado[] = {false, true, true};
+                fieldPanel = new FieldPanel("Datos", criterios, "Valores", valores, estado);
+            }
+            centro.setCenter(fieldPanel.getGrid());
+        });
+
         procesosbtn = new Button("Procesos y consultas");
         procesosbtn.setOnAction(new HandlerProcesos());
         ayudabtn = new Button("Ayuda");
@@ -199,64 +248,29 @@ public class BodyArt extends Application {
         form.setVgap(10);
         centro.setCenter(form);
         root.setCenter(centro);
-        Scene scene = new Scene(root, 600, 400);
-
-        stage.setTitle("Body Art");
-        stage.setScene(scene);
-        stage.show();
-    }
-    
-
-    class HandlerIngresar implements EventHandler<ActionEvent> {
-
-        @Override
-        public void handle(ActionEvent event) {
-            String usuario = usuariotf.getText();
-            String contrasena = contraseñatf.getText();
-            Object array[] = Usuario.iniciarSesion(usuario, contrasena);
-            if (array == null) {
-                //Acá va ventana emergente
-            } else {
-                MenuDeConsola.sesion = (Usuario) array[0];
-                MenuDeConsola.crearMenu((String[]) array[1]);
-                StageUser();
-            }
-        }
-
-    }
-    
-    class HandlerArchivo implements EventHandler<ActionEvent> {
-
-        @Override
-        public void handle(ActionEvent e) {
-//            Usuario user = MenuDeConsola.sesion;
-            Usuario user = new Cliente("1193", "Slg", "1193", 19, 68, 170, "m", "541");
-            FieldPanel fieldPanel = null;
-            if (user instanceof Cliente) {
-                Cliente cliente = (Cliente) user;
-                String criterios[] = {"Cédula", "Nombre", "Contraseña", "Peso", "Estatura", "Edad", "Genero", "Telefono"};
-                String valores[] = {cliente.getCedula(), cliente.getNombre(), cliente.getContrasena(),String.valueOf(cliente.getPeso()), String.valueOf(cliente.getEstatura()), String.valueOf(cliente.getEdad()), cliente.getGenero(), cliente.getTelefono()};
-                boolean estado[] = {false, true, true, true, true, true, true, true,};
-                fieldPanel = new FieldPanel("Datos", criterios, "Valores", valores, estado);
-            }
-            centro.setCenter(fieldPanel.getGrid());
-        }
+        return new Scene(root, 600, 400);
     }
 
     class HandlerProcesos implements EventHandler<ActionEvent> {
 
         @Override
         public void handle(ActionEvent e) {
+
             FlowPane opciones = new FlowPane(Orientation.VERTICAL);
-            opciones.setVgap(20);
+            opciones.setVgap(5);
             opciones.setHgap(20);
-            calcularPesoIdealbtn = new Button("Calcular peso ideal");
-            Button imprimirAlgobtn = new Button("Calcular IMC");
-            opciones.getChildren().addAll(imprimirAlgobtn, new Button("TMB"), new Button("Dieta"), calcularPesoIdealbtn);
+            ArrayList<String> listaMenu = new MenuDeConsola().getListaMenu();
+            for (String opcionDeMenu : listaMenu) {
+                Hyperlink linkOpcion = new Hyperlink(opcionDeMenu);
+                opciones.getChildren().add(linkOpcion);
+            }
 
-            calcularPesoIdealbtn.setOnAction(new HandlerCalcularPesoIdeal());
-            imprimirAlgobtn.setOnAction(new HandlerImprimirAlgo());
-
+//            calcularPesoIdealbtn = new Button("Calcular peso ideal");
+//            Button imprimirAlgobtn = new Button("Calcular IMC");
+//            opciones.getChildren().addAll(imprimirAlgobtn, new Button("TMB"), new Button("Dieta"), calcularPesoIdealbtn);
+//
+//            calcularPesoIdealbtn.setOnAction(new HandlerCalcularPesoIdeal());
+//            imprimirAlgobtn.setOnAction(new HandlerImprimirAlgo());
             centro.setCenter(opciones);
 
             //Slg
@@ -334,6 +348,5 @@ public class BodyArt extends Application {
             resultadoPesoIdeal.appendText(slg.imprimiendoAlgo());
         }
     }
-    
-    
+
 }

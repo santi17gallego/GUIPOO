@@ -70,6 +70,10 @@ public class GestorUsuario {
                             Cliente cliente=new Cliente(cadena[2], cedula, contrasena);
                             cliente.setPeso(Float.parseFloat(cadena[5]));
                             cliente.setGenero(cadena[7]);
+                            cliente.setEstatura(Float.parseFloat(cadena[6]));
+                            cliente.setEdad(Integer.parseInt(cadena[4]));
+                            cliente.setTelefono(cadena[8]);
+                            
                             lista[0] = cliente;
                             
                             lista[1] = lines.substring(lines.indexOf("permisos") + 9).split(" ");

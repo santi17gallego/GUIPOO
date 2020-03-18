@@ -4,7 +4,6 @@ import BaseDatos.GestorSugerencia;
 import BaseDatos.GestorUsuario;
 
 //slg
-import windows.UserWindow;
 
 public class Instructor extends Usuario implements Sugerencia{
     
