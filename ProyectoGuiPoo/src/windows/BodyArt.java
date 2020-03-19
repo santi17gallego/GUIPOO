@@ -10,8 +10,11 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
 import javafx.scene.*;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -28,12 +31,13 @@ public class BodyArt extends Application {
     //slg
     private Button calcularPesoIdealbtn;
     private Button enviarbtn;
-    GridPane migridpane2 = new GridPane();
+
     Button registrarsebtn = new Button("Registrarse");
     Label informacion;
 
     TextField peso;
-
+    BorderPane miborderpane = new BorderPane();
+    BorderPane miborderpane3_1 = new BorderPane();
     public TextArea resultadoPesoIdeal;
 
     int pesoEntero;
@@ -42,6 +46,8 @@ public class BodyArt extends Application {
     private Button ingresarbtn = new Button("Ingresar");
     TextField usuariotf;
     TextField contraseñatf;
+
+    static int con = 1;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -63,18 +69,39 @@ public class BodyArt extends Application {
                 primaryStage.setScene(escenaUsuario());
             }
         });
-        
+
         registrarsebtn.setOnAction((event) -> {
-                String criterios[] = {"Cédula", "Nombre", "Contraseña", "Peso", "Estatura", "Edad", "Genero", "Telefono"};
-                String valores[] = null;
-                boolean estado[] = null;
-                FieldPanel fieldPanel = new FieldPanel("Datos", criterios, "Valores", valores, estado);
-                migridpane2.add(fieldPanel.getGrid(),0,1);
+            String criterios[] = {"Cédula", "Nombre", "Contraseña", "Peso", "Estatura", "Edad", "Genero", "Telefono"};
+            String valores[] = null;
+            boolean estado[] = null;
+            FieldPanel fieldPanel = new FieldPanel("Datos", criterios, "Valores", valores, estado);
+//                form.setPadding(new Insets(20, 20, 20, 20));
+//                form.setHgap(10);
+//                form.setVgap(10);
+
+            GridPane migrid = fieldPanel.getGrid();
+            migrid.setBorder(new Border(new BorderStroke(Color.BLACK,
+                    BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+            migrid.setPadding(new Insets(10, 10, 10, 10));
+            miborderpane.setCenter(migrid);
+            //Button atrasbtn = new Button("Atrás");
         });
-        
+
         salirbtn.setOnAction((event) -> {
             primaryStage.setScene(escenaInicial());
 
+        });
+
+        miborderpane3_1.setOnMouseEntered((event) -> {
+            if (con == 5) {
+                con = 1;
+            }
+            Image img = new Image("imagenes/" + con + ".jpg");
+            ImageView imgv = new ImageView(img);
+            imgv.setFitWidth(200);
+            imgv.setFitHeight(200);
+            miborderpane3_1.setCenter(imgv);
+            con++;
         });
 
     }
@@ -84,35 +111,53 @@ public class BodyArt extends Application {
     }
 
     private Scene escenaInicial() {
-        BorderPane miborderpane = new BorderPane();
+        miborderpane = new BorderPane();
         miborderpane.setBorder(new Border(new BorderStroke(Color.BLACK,
                 BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 
         miborderpane.setPadding(new Insets(10, 10, 10, 10));
-        Button salirbtn = new Button("salir");
+
         Button descripcionbtn = new Button("Descripcion");
-        GridPane migridpane = new GridPane();
+        HBox miHbox = new HBox();
 
-        migridpane.setBorder(new Border(new BorderStroke(Color.BLACK,
-                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-        migridpane.setPadding(new Insets(5, 5, 5, 5));
+        miHbox.getChildren().addAll(descripcionbtn, salirbtn);
 
+//
+//        migridpane.setBorder(new Border(new BorderStroke(Color.BLACK,
+//                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+//        migridpane.setPadding(new Insets(5, 5, 5, 5));
+//        migridpane.setAlignment(Pos.CENTER);
+//
         Label nombrelb = new Label("BodyArt");
+//        
+//        
+//        
+//        migridpane.add(nombrelb, 1, 1);
+//        migridpane.add(salirbtn, 5, 1);
+//        migridpane.add(descripcionbtn, 6, 1);
+//        migridpane.setVgap(3);
+//        migriedpane.setHgap(5);
 
-        migridpane.add(nombrelb, 1, 1);
-        migridpane.add(salirbtn, 5, 1);
-        migridpane.add(descripcionbtn, 6, 1);
-        migridpane.setVgap(3);
-        migridpane.setHgap(5);
+        BorderPane root3 = new BorderPane();
+        root3.setBorder(new Border(new BorderStroke(Color.BLACK,
+                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+        root3.setLeft(nombrelb);
+        root3.setRight(miHbox);
+        root3.setPadding(new Insets(5, 5, 5, 5));
+        miborderpane.setTop(root3);
 
-        miborderpane.setTop(migridpane); //metimos primer grid a mi
+        miborderpane.setTop(root3); //metimos primer grid a mi
         //hasta aca bien
 
         //MIBORDERPANER
         BorderPane organizador = new BorderPane();
+        organizador.setBorder(new Border(new BorderStroke(Color.BLACK,
+                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+        organizador.setPadding(new Insets(5, 5, 5, 5));
         miborderpane.setCenter(organizador);
 
-          //segundo panel creado izquierdo.
+        //segundo panel creado izquierdo.
+        GridPane migridpane2 = new GridPane();
         migridpane2.setPadding(new Insets(10, 10, 10, 10));
         GridPane migridpane3 = new GridPane(); //segundo panel creado derecho.
         migridpane3.setPadding(new Insets(10, 10, 10, 10));
@@ -127,8 +172,8 @@ public class BodyArt extends Application {
                 BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 
         //MIGRIDPANE2
-        BorderPane miborderpane2_1 = new BorderPane(); //border de saludo.
         GridPane migridpane2_2 = new GridPane();
+        BorderPane miborderpane2_1 = new BorderPane(); //border de saludo.
         migridpane2.add(miborderpane2_1, 0, 0); //anidamos 
         migridpane2.add(migridpane2_2, 0, 1); //anidamos
         migridpane2.setVgap(5);
@@ -143,8 +188,6 @@ public class BodyArt extends Application {
         //Gridpane2_2
         usuariotf = new TextField();
         contraseñatf = new PasswordField();
-
-        
 
         migridpane2_2.add(usuariotf, 0, 0);
         migridpane2_2.add(contraseñatf, 1, 0);
@@ -161,7 +204,6 @@ public class BodyArt extends Application {
         migridpane2_2.setPadding(new Insets(10, 10, 10, 10));
 
         //GRIDPANE3
-        BorderPane miborderpane3_1 = new BorderPane();
         BorderPane miborderpane3_2 = new BorderPane();
 
         migridpane3.add(miborderpane3_1, 0, 0);
@@ -171,17 +213,21 @@ public class BodyArt extends Application {
         miborderpane3_2.setBorder(new Border(new BorderStroke(Color.BLACK,
                 BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 
-        miborderpane3_1.setCenter(new Label("Aqui va una imagen"));
+        Image img = new Image("imagenes/1.jpg");
+        ImageView imgv = new ImageView(img);
+        imgv.setFitWidth(200);
+        imgv.setFitHeight(200);
+        miborderpane3_1.setCenter(imgv);
         miborderpane3_1.setPadding(new Insets(10, 10, 10, 10));
         miborderpane3_2.setPadding(new Insets(10, 10, 10, 10));
-        return new Scene(miborderpane, 550, 400);
+        return new Scene(miborderpane, 650, 500);
     }
-    
-    public Scene escenaRegistrarse(){
-        
+
+    public Scene escenaRegistrarse() {
+
         return null;
     }
-    
+
     public Scene escenaUsuario() {
         BorderPane root = new BorderPane();
 
