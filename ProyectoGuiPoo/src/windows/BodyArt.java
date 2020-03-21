@@ -17,6 +17,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 import uiMain.menuConsola.MenuDeConsola;
@@ -39,15 +41,15 @@ public class BodyArt extends Application {
     BorderPane miborderpane = new BorderPane();
     BorderPane miborderpane3_1 = new BorderPane();
     public TextArea resultadoPesoIdeal;
-
+    BorderPane miborderpane3_2 = new BorderPane();
     int pesoEntero;
 
     //Login
     private Button ingresarbtn = new Button("Ingresar");
     TextField usuariotf;
     TextField contraseñatf;
-
-    static int con = 1;
+    Button descripcionbtn = new Button("Descripcion");
+    static int con = 1, con2 = 7;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -88,8 +90,8 @@ public class BodyArt extends Application {
         });
 
         salirbtn.setOnAction((event) -> {
-            primaryStage.setScene(escenaInicial());
-
+            //primaryStage.setScene(escenaInicial());
+            primaryStage.close();
         });
 
         miborderpane3_1.setOnMouseEntered((event) -> {
@@ -104,6 +106,54 @@ public class BodyArt extends Application {
             con++;
         });
 
+        miborderpane3_2.setOnMouseClicked((event) -> {
+            if (con2 == 10) {
+                con2 = 6;
+            }
+            Image img = new Image("imagenes/" + con2 + ".jpg");
+            ImageView imgv = new ImageView(img);
+            imgv.setFitWidth(90);
+            imgv.setFitHeight(90);
+//            HBox hbx = new HBox();
+//            hbx.getChildren().add(imgv);
+//            StackPane stp = new StackPane();
+//            stp.getChildren().addAll(new Label("Nombre: "), new Label("Edad: "), new Label("Genero: "));
+//            hbx.getChildren().add(stp);
+            miborderpane3_2.setTop(imgv);
+            Label lb = new Label();
+            lb.setMaxWidth(200);
+            lb.setTextFill(Color.web("WHITE"));
+            if (con2 == 6) {
+                lb.setText("Mi nombre es Juan Camilo Muñoz\n"
+                        + " soy estudiante de tercer semestre de\n "
+                        + "ingeniería de sistemas, tengo 21 años,\n"
+                        + "egresado del Sena, salí graduado con honores\n"
+                        + "en la tecnologia de programación\n"
+                        + "actualmente vivo con mis padres en la ciudad de medellin.");
+            } else if (con2 == 7) {
+                lb.setText("Mi nombre es Jean Carlo Herrera Delgado soy estudiante de cuarto semestre de ingeniería de sistemas\n"
+                        + "tengo 21 años,soy músico-compositor y cocreador de la banda young blood, actualmente vivo en medellin pero mis padres resíden en Puerto Berrío.");
+            } else if (con2 == 8) {
+                lb.setText("Mi nombre es Santiago López Gallego, soy estudiante de tercer semestre de ingeniería de sistemas\n"
+                        + "tengo 19 años, saxofonista de alto nivel para la banda EL Retiro. Actualmente resido en el Retiro.");
+            } else if (con2 == 9) {
+                lb.setText("Mi nombre es Juan Camilo Hoyos, soy estudiante de cuarto semestre de ingeniería de sistemas\n"
+                        + "tengo 24 años, soy tecnólogo en gestión de redes egresado del Sena, vivo en medellín pero soy huilense. ");
+
+            }
+            miborderpane3_2.setCenter(lb);
+            con2++;
+        });
+        
+        descripcionbtn.setOnAction((event) -> {
+            Label lb=new Label("DESCRIPCIÓN\n" +
+"El gimnasio BodyArt recibe aproximadamente 150 clientes al día, ofrece varios tipos de productos: rutinas, dietas y suplementos dietarios. Los clientes pueden por medio de esta aplicación consultar algunos datos básicos, reservar en línea y registrarse. \n" +
+"Nuestros empleados tienen control total de la gestión de actividades que se realizan en el gimnasio, tales como control de clientes, eventos e inventario disponible en la tienda de suplementos. \n" +
+"El administrador puede agregar empleados, puede modificar permisos de algunos de ellos haciendo que la aplicación sea completamente focalizada en grupos, por tanto, es completamente adaptable a las necesidades propias de cada sucursal del gimnasio o de cualquier organización.");
+            lb.setAlignment(Pos.TOP_LEFT);
+            miborderpane.setCenter(lb);
+        });
+        
     }
 
     public static void main(String[] args) {
@@ -117,7 +167,7 @@ public class BodyArt extends Application {
 
         miborderpane.setPadding(new Insets(10, 10, 10, 10));
 
-        Button descripcionbtn = new Button("Descripcion");
+        
         HBox miHbox = new HBox();
 
         miHbox.getChildren().addAll(descripcionbtn, salirbtn);
@@ -129,6 +179,10 @@ public class BodyArt extends Application {
 //        migridpane.setAlignment(Pos.CENTER);
 //
         Label nombrelb = new Label("BodyArt");
+        nombrelb.setTextFill(Color.web("WHITE"));
+        nombrelb.setFont(new Font("Yu Gothic UI Semibold", 20));
+        nombrelb.setTextAlignment(TextAlignment.CENTER);
+
 //        
 //        
 //        
@@ -137,7 +191,6 @@ public class BodyArt extends Application {
 //        migridpane.add(descripcionbtn, 6, 1);
 //        migridpane.setVgap(3);
 //        migriedpane.setHgap(5);
-
         BorderPane root3 = new BorderPane();
         root3.setBorder(new Border(new BorderStroke(Color.BLACK,
                 BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
@@ -162,6 +215,10 @@ public class BodyArt extends Application {
         GridPane migridpane3 = new GridPane(); //segundo panel creado derecho.
         migridpane3.setPadding(new Insets(10, 10, 10, 10));
         migridpane3.setMaxWidth(Double.MAX_VALUE);
+        migridpane3.getColumnConstraints().add(new ColumnConstraints(300));
+       
+        
+        
         organizador.setLeft(migridpane2);
         organizador.setRight(migridpane3);
         organizador.setCenter(null);
@@ -180,7 +237,15 @@ public class BodyArt extends Application {
         migridpane2.setHgap(5);
 
         //borderpane2_1
-        Label saludobl = new Label("Bienvenidos al gimnasio Body Art");
+        Label saludobl = new Label("Bienvenido a BodyArt"
+                + "\nLugar donde aprenderas"
+                + "\nque no siempre es fácil, "
+                + "\npero vale la pena.");
+        saludobl.setTextAlignment(TextAlignment.CENTER);
+        saludobl.setTextFill(Color.web("WHITE"));
+        saludobl.setFont(new Font("Corbel Light", 20));
+        miborderpane.setStyle("-fx-background-color: #006699;");
+
         miborderpane2_1.setCenter(saludobl);
 
         miborderpane2_1.setPadding(new Insets(10, 10, 10, 10));
@@ -204,8 +269,6 @@ public class BodyArt extends Application {
         migridpane2_2.setPadding(new Insets(10, 10, 10, 10));
 
         //GRIDPANE3
-        BorderPane miborderpane3_2 = new BorderPane();
-
         migridpane3.add(miborderpane3_1, 0, 0);
         migridpane3.add(miborderpane3_2, 0, 1);
         miborderpane3_1.setBorder(new Border(new BorderStroke(Color.BLACK,
@@ -220,12 +283,27 @@ public class BodyArt extends Application {
         miborderpane3_1.setCenter(imgv);
         miborderpane3_1.setPadding(new Insets(10, 10, 10, 10));
         miborderpane3_2.setPadding(new Insets(10, 10, 10, 10));
-        return new Scene(miborderpane, 650, 500);
-    }
 
-    public Scene escenaRegistrarse() {
+        Image img2 = new Image("imagenes/6.jpg");
+        ImageView imgv2 = new ImageView(img2);
+        imgv2.setFitWidth(90);
+        imgv2.setFitHeight(90);
+//            HBox hbx = new HBox();
+//            hbx.getChildren().add(imgv);
+//            StackPane stp = new StackPane();
+//            stp.getChildren().addAll(new Label("Nombre: "), new Label("Edad: "), new Label("Genero: "));
+//            hbx.getChildren().add(stp);
+        miborderpane3_2.setTop(imgv2);
+        Label lb = new Label("Mi nombre es Juan Camilo Muñoz soy estudiante de tercer semestre de ingeniería de sistemas\n"
+                + "tengo 21 años, egresado del Sena, salí graduado con honores en la tecnologia de programación\n"
+                + "actualmente vivo con mis padres en la ciudad de medellin.");
+        lb.setMaxWidth(200);
+        lb.setTextFill(Color.web("WHITE"));
+        lb.setTextAlignment(TextAlignment.JUSTIFY);
+        lb.setContentDisplay(ContentDisplay.LEFT);
+        miborderpane3_2.setCenter(lb);
 
-        return null;
+        return new Scene(miborderpane, 700, 500);
     }
 
     public Scene escenaUsuario() {
@@ -327,7 +405,13 @@ public class BodyArt extends Application {
 
         @Override
         public void handle(ActionEvent e) {
-            JOptionPane.showMessageDialog(null, "Descripcion del mensaje", "Titulo del mensaje", JOptionPane.PLAIN_MESSAGE);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("\nAutores del proyecto: "
+                    + "\nJuan Camilo Muñoz López"
+                    + "\nJuan Camilo Hoyos Peña"
+                    + "\nYanka LDS Herrera Delgado"
+                    + "\nSantiago López Gallego\"");
+            alert.show();
         }
     }
 
