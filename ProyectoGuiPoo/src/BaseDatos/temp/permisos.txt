@@ -1,4 +1,4 @@
-cliente Cliente-ConsultarPesoIdeal Cliente-ConsultarCaloriasQuemadas Cliente-InscribirEvento *-RegistrarSugerencia
-vendedor Vendedor-RegistrarEvento Vendedor-ConsultarInventario Vendedor-RegistrarProducto *-RegistrarSugerencia Vendedor-RegistrarVenta Vendedor-ConsultarVentas
-instructor Instructor-ConsultarImc Instructor-ConsultarTmb Instructor-ConsultarEstadoActual Instructor-ConsultarRutina Instructor-ConsultarDieta *-RegistrarSugerencia
+cliente Cliente-ConsultarPesoIdeal Cliente-ConsultarCaloriasQuemadas *-RegistrarSugerencia
+vendedor Vendedor-ConsultarInventario Vendedor-RegistrarProducto *-RegistrarSugerencia
+instructor Instructor-ConsultarRutina Instructor-ConsultarDieta *-RegistrarSugerencia
 administrador Administrador-RegistrarUsuario Administrador-ConsultarPermisos Administrador-ConsultarTodosLosPermisos Administrador-AgregarPermisos Administrador-EliminarPermisos Administrador-EliminarUsuario

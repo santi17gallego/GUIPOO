@@ -80,9 +80,9 @@ public class Cliente extends Usuario implements Sugerencia{
     }
     
 //MÉTODOS CONCRETOS
-    public String pesoIdeal(float estatura){
+    public void pesoIdeal(float estatura){
         float a = (estatura*100)-100;
-        return "Su peso ideal es: "+a;
+        System.out.println("Su peso ideal es: "+a);
     }
     
     public String calcularkcaloriasquemadas(int distanciaRecorrida) {

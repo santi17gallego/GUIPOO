@@ -75,18 +75,23 @@ public class MenuDeConsola {
 //            cerrarSesion();
 //        }
 //    }
+
     public static void cerrarSesion() {
         MenuDeConsola.listaMenu = new ArrayList<String>();
         MenuDeConsola.sesion = null;
     }
 
     public static void crearMenu(String lista[]) {
-        for (String item : lista) {
+        try {
+            for (String item : lista) {
 //                String item1[] = item.split("-");
 //                String paquete = item1[0];
 //                String clase = item1[1];
 //                listaMenu.add((OpcionDeMenu) Class.forName("uiMain.Opciones." + ("*".equals(paquete) ? "": paquete+".") + "Opcion" + clase).newInstance());
-            listaMenu.add(item);
+                listaMenu.add(item);    
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
         //lanzarMenu();
     }

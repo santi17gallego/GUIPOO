@@ -9,7 +9,9 @@ vendedor 8888 111111 2131 permisos Vendedor-RegistrarProducto Vendedor-Consultar
 vendedor 000 Andres 000 permisos Vendedor-RegistrarProducto Vendedor-ConsultarInventario *-RegistrarSugerencia
 cliente 1001447451 juan juan09 16 85.0 180.0 masculino 4325645 permisos Cliente-ConsultarPesoIdeal Cliente-ConsultarCaloriasQuemadas Cliente-InscribirEvento
 cliente 4 0 4 4 4.0 4.0 4 4 permisos Cliente-ConsultarPesoIdeal Cliente-ConsultarCaloriasQuemadas Cliente-InscribirEvento
-cliente 1112 Santi 1112 17 123.0 1.8 m 123 permisos Consultar_Peso_Ideal
+cliente 1112 Santi 1112 17 123.0 1.8 m 123 permisos Cliente-ConsultarPesoIdeal Cliente-ConsultarCaloriasQuemadas Cliente-InscribirEvento
+cliente 1112 Santi 1112 19 68.0 1.68 m 123 permisos Cliente-ConsultarPesoIdeal Cliente-ConsultarCaloriasQuemadas Cliente-InscribirEvento
+cliente 1112 Santi 1112 19 68.0 1.68 m 123 permisos Cliente-ConsultarPesoIdeal Cliente-ConsultarCaloriasQuemadas Cliente-InscribirEvento
 cliente 123 sasa 123 123 123.0 123.0 123 123 permisos Cliente-ConsultarPesoIdeal Cliente-ConsultarCaloriasQuemadas Cliente-InscribirEvento
 cliente 123 asd 123 123 123.0 123.0 123 123 permisos Cliente-ConsultarPesoIdeal Cliente-ConsultarCaloriasQuemadas Cliente-InscribirEvento
 instructor 983 Pedro r129 permisos Instructor-ConsultarEstadoActual Instructor-ConsultarImc Instructor-ConsultarTmb Instructor-ConsultarRutina Instructor-ConsultarDieta
