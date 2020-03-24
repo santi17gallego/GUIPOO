@@ -1,6 +1,7 @@
 package windows;
 
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -9,9 +10,14 @@ import javafx.scene.layout.Pane;
 public class FieldPanel extends Pane {
 
     private GridPane grid = new GridPane();
+    private String[] criterios;
+    private String[] valores;
 
     public FieldPanel(String tituloCriterios, String[] criterios, String tituloValores, String[] valores,
             boolean[] habilitado) {
+        this.criterios=criterios;
+        this.valores=valores;
+        
         grid.setAlignment(Pos.TOP_CENTER);
         grid.setHgap(10);
         grid.setVgap(10);
@@ -33,5 +39,16 @@ public class FieldPanel extends Pane {
 
     public GridPane getGrid() {
         return grid;
+    }
+
+    public String getValue(String criterio) {
+        String valor="";
+        for (int i = 0; i < criterios.length; i++) {
+            if(criterio.equals(criterios[i])){
+                valor=valores[i];
+                break;
+            }
+        }
+        return valor;
     }
 }

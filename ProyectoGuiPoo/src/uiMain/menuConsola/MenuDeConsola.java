@@ -75,9 +75,9 @@ public class MenuDeConsola {
 //            cerrarSesion();
 //        }
 //    }
-    public static void cerrarSesion() {
-        MenuDeConsola.listaMenu = new ArrayList<String>();
-        MenuDeConsola.sesion = null;
+    public void cerrarSesion() {
+        listaMenu = new ArrayList<String>();
+        sesion = null;
     }
 
     public static void crearMenu(String lista[]) {
