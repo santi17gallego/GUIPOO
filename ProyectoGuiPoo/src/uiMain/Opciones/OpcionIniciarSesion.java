@@ -14,14 +14,14 @@ public class OpcionIniciarSesion extends OpcionDeMenu {
         String cedula=sc.nextLine();
         System.out.println("Ingrese contraseña:");
         String contra=sc.nextLine();
-        Object [] lista =Usuario.iniciarSesion(cedula, contra);        
-        if(lista== null){
-            System.out.println("Error al iniciar sesión");
-//            MenuDeConsola.lanzarMenu();
-        }else{
-//            MenuDeConsola.sesion=(Usuario)lista[0];
-            MenuDeConsola.crearMenu((String [])lista[1]);
-        }
+//        Object [] lista =Usuario.iniciarSesion(cedula, contra);        
+//        if(lista== null){
+//            System.out.println("Error al iniciar sesión");
+////            MenuDeConsola.lanzarMenu();
+//        }else{
+////            MenuDeConsola.sesion=(Usuario)lista[0];
+//            MenuDeConsola.crearMenu((String [])lista[1]);
+//        }
     }
     
 }

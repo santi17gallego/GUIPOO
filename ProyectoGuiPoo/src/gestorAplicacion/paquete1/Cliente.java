@@ -3,6 +3,7 @@ package gestorAplicacion.paquete1;
 import BaseDatos.GestorEvento;
 import BaseDatos.GestorSugerencia;
 import BaseDatos.GestorUsuario;
+import Excepciones.EstructuraNoValida;
 import gestorAplicacion.paquete2.Evento;
 import java.util.ArrayList;
 
@@ -80,9 +81,15 @@ public class Cliente extends Usuario implements Sugerencia{
     }
     
 //MÉTODOS CONCRETOS
-    public String pesoIdeal(float estatura){
-        float a = (estatura*100)-100;
-        return "Su peso ideal es: "+a;
+    public String pesoIdeal(float estatura) throws EstructuraNoValida{
+        if(estatura>0){
+            float a = (estatura*100)-100;
+            return "Su peso ideal es: "+a;
+        }else{
+            throw new EstructuraNoValida();
+        }
+       
+
     }
     
     public String calcularkcaloriasquemadas(int distanciaRecorrida) {

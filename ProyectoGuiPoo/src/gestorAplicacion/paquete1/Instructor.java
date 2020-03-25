@@ -2,6 +2,7 @@ package gestorAplicacion.paquete1;
 
 import BaseDatos.GestorSugerencia;
 import BaseDatos.GestorUsuario;
+import Excepciones.UsuarioInvalido;
 
 //slg
 
@@ -99,8 +100,12 @@ public class Instructor extends Usuario implements Sugerencia{
         return GestorSugerencia.RegistrarSugerencia(comentario);
     }
 
-    public Cliente consultarCliente(String cedula) {
-        return GestorUsuario.ConsultarCliente(cedula);
+    public Cliente consultarCliente(String cedula) throws UsuarioInvalido{
+        Cliente cliente = GestorUsuario.ConsultarCliente(cedula);
+        if(cliente==null){
+            throw new UsuarioInvalido();
+        }
+        return cliente;
     }
     
     //slg

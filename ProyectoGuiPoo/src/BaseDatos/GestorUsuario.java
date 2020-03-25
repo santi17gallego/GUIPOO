@@ -1,5 +1,6 @@
 package BaseDatos;
 
+import Excepciones.CedulaOContrasenaInvalida;
 import gestorAplicacion.paquete1.Administrador;
 import gestorAplicacion.paquete1.Cliente;
 import gestorAplicacion.paquete1.Instructor;
@@ -55,7 +56,7 @@ public class GestorUsuario {
         return true;
     }
 
-    public static Object[] IniciarSesion(String cedula, String contrasena) {
+    public static Object[] IniciarSesion(String cedula, String contrasena) throws CedulaOContrasenaInvalida{
         try {
             fr = new FileReader(file);
             br = new BufferedReader(fr);
@@ -93,8 +94,12 @@ public class GestorUsuario {
             }
             br.close();
             fr.close();
+            
+            if(lista==null){
+                throw new CedulaOContrasenaInvalida();
+            }
             return lista;
-        } catch (Exception e) {
+        } catch (IOException | NumberFormatException e) {
             return null;
         }
     }

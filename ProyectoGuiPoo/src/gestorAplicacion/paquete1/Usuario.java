@@ -1,6 +1,7 @@
 package gestorAplicacion.paquete1;
 
 import BaseDatos.GestorUsuario;
+import Excepciones.CedulaOContrasenaInvalida;
 
 public abstract class Usuario {
     private String nombre;
@@ -48,7 +49,7 @@ public abstract class Usuario {
         this.contrasena = contrasena;
     }
     
-    public static Object[] iniciarSesion(String cedula, String contrasena){
+    public static Object[] iniciarSesion(String cedula, String contrasena) throws CedulaOContrasenaInvalida{
         return GestorUsuario.IniciarSesion(cedula, contrasena);
     }
     

@@ -1,18 +1,20 @@
 package windows;
 
-import gestorAplicacion.paquete1.Administrador;
+import Excepciones.CedulaOContrasenaInvalida;
+import Excepciones.EstructuraNoValida;
+import Excepciones.UsuarioInvalido;
 import gestorAplicacion.paquete1.Cliente;
 import gestorAplicacion.paquete1.Instructor;
 import gestorAplicacion.paquete1.Usuario;
 import gestorAplicacion.paquete1.Vendedor;
 import gestorAplicacion.paquete2.Suplemento;
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.geometry.Insets;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.HPos;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.*;
@@ -24,7 +26,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import javax.swing.JOptionPane;
 import uiMain.menuConsola.MenuDeConsola;
 
 public class BodyArt extends Application {
@@ -76,14 +77,15 @@ public class BodyArt extends Application {
         ingresarbtn.setOnAction((event) -> {
             String usuario = usuariotf.getText();
             String contrasena = contraseñatf.getText();
-            Object array[] = Usuario.iniciarSesion(usuario, contrasena);
-            if (array == null) {
-                new Alert(Alert.AlertType.ERROR, "Error al realizar la acción").show();
-            } else {
+            try {
+                Object array[] = Usuario.iniciarSesion(usuario, contrasena);
                 new MenuDeConsola().setSesion((Usuario) array[0]);
                 MenuDeConsola.crearMenu((String[]) array[1]);
                 primaryStage.setScene(escenaUsuario());
+            } catch (CedulaOContrasenaInvalida ex) {
+                new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();
             }
+
         });
 
         registrarsebtn.setOnAction((event) -> {
@@ -96,10 +98,27 @@ public class BodyArt extends Application {
 //                form.setVgap(10);
 
             GridPane migrid = fieldPanel.getGrid();
+            Button registrarseEnviar = new Button("Registrarse");
+            migrid.addColumn(1, registrarseEnviar);
             migrid.setBorder(new Border(new BorderStroke(Color.BLACK,
                     BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
             migrid.setPadding(new Insets(10, 10, 10, 10));
             miborderpane.setCenter(migrid);
+
+            registrarseEnviar.setOnAction((event1) -> {
+                Scene scene = primaryStage.getScene();
+                Cliente cliente = new Cliente(((TextField)scene.lookup("#Cédula")).getText(), ((TextField)scene.lookup("#Nombre")).getText(), ((TextField)scene.lookup("#Contraseña")).getText(), Integer.parseInt(fieldPanel.getValue("Peso")), Float.parseFloat(fieldPanel.getValue("Estatura")), Integer.parseInt(fieldPanel.getValue("Edad")), fieldPanel.getValue("Genero"), fieldPanel.getValue("Telefono"));
+                if (Cliente.registrarse(cliente)) {
+                    new MenuDeConsola().setSesion(cliente);
+                    String lista[] = {"ConsultarPesoIdeal", "ConsultarCaloriasQuemadas"};
+                    MenuDeConsola.crearMenu(lista);
+                    primaryStage.setScene(escenaUsuario());
+                } else {
+                    Alert alerta = new Alert(Alert.AlertType.ERROR);
+                    alerta.setContentText("Error al registrarse.");
+                    alerta.show();
+                }
+            });
             //Button atrasbtn = new Button("Atrás");
         });
 
@@ -137,23 +156,29 @@ public class BodyArt extends Application {
             Label lb = new Label();
             lb.setMaxWidth(200);
             lb.setTextFill(Color.web("WHITE"));
-            if (con2 == 6) {
-                lb.setText("Mi nombre es Juan Camilo Muñoz\n"
-                        + " soy estudiante de tercer semestre de\n "
-                        + "ingeniería de sistemas, tengo 21 años,\n"
-                        + "egresado del Sena, salí graduado con honores\n"
-                        + "en la tecnologia de programación\n"
-                        + "actualmente vivo con mis padres en la ciudad de medellin.");
-            } else if (con2 == 7) {
-                lb.setText("Mi nombre es Jean Carlo Herrera Delgado soy estudiante de cuarto semestre de ingeniería de sistemas\n"
-                        + "tengo 21 años,soy músico-compositor y cocreador de la banda young blood, actualmente vivo en medellin pero mis padres resíden en Puerto Berrío.");
-            } else if (con2 == 8) {
-                lb.setText("Mi nombre es Santiago López Gallego, soy estudiante de tercer semestre de ingeniería de sistemas\n"
-                        + "tengo 19 años, saxofonista de alto nivel para la banda EL Retiro. Actualmente resido en el Retiro.");
-            } else if (con2 == 9) {
-                lb.setText("Mi nombre es Juan Camilo Hoyos, soy estudiante de cuarto semestre de ingeniería de sistemas\n"
-                        + "tengo 24 años, soy tecnólogo en gestión de redes egresado del Sena, vivo en medellín pero soy huilense. ");
-
+            switch (con2) {
+                case 6:
+                    lb.setText("Mi nombre es Juan Camilo Muñoz\n"
+                            + " soy estudiante de tercer semestre de\n "
+                            + "ingeniería de sistemas, tengo 21 años,\n"
+                            + "egresado del Sena, salí graduado con honores\n"
+                            + "en la tecnologia de programación\n"
+                            + "actualmente vivo con mis padres en la ciudad de medellin.");
+                    break;
+                case 7:
+                    lb.setText("Mi nombre es Jean Carlo Herrera Delgado soy estudiante de cuarto semestre de ingeniería de sistemas\n"
+                            + "tengo 21 años,soy músico-compositor y cocreador de la banda young blood, actualmente vivo en medellin pero mis padres resíden en Puerto Berrío.");
+                    break;
+                case 8:
+                    lb.setText("Mi nombre es Santiago López Gallego, soy estudiante de tercer semestre de ingeniería de sistemas\n"
+                            + "tengo 19 años, saxofonista de alto nivel para la banda EL Retiro. Actualmente resido en el Retiro.");
+                    break;
+                case 9:
+                    lb.setText("Mi nombre es Juan Camilo Hoyos, soy estudiante de cuarto semestre de ingeniería de sistemas\n"
+                            + "tengo 24 años, soy tecnólogo en gestión de redes egresado del Sena, vivo en medellín pero soy huilense. ");
+                    break;
+                default:
+                    break;
             }
             miborderpane3_2.setCenter(lb);
             con2++;
@@ -268,7 +293,9 @@ public class BodyArt extends Application {
 
         //Gridpane2_2
         usuariotf = new TextField();
+        usuariotf.setPromptText("Cedula");
         contraseñatf = new PasswordField();
+        contraseñatf.setPromptText("Contraseña");
 
         migridpane2_2.add(usuariotf, 0, 0);
         migridpane2_2.add(contraseñatf, 1, 0);
@@ -400,20 +427,20 @@ public class BodyArt extends Application {
                 fieldPanel = new FieldPanel("Datos", criterios, "Valores", valores, estado);
             }
             GridPane grid = fieldPanel.getGrid();
-            Button borrarbtn=new Button("Borrar");
-            Button enviarbtn=new Button("Enviar");
+            Button borrarbtn = new Button("Borrar");
+            Button enviarbtn = new Button("Enviar");
             grid.addColumn(0, borrarbtn);
             grid.addColumn(1, enviarbtn);
-            
+
             centro.setCenter(grid);
-            
+
             enviarbtn.setOnAction((event2) -> {
-                Usuario user1=new MenuDeConsola().getSesion();
-                if(user1 instanceof Cliente){
+                Usuario user1 = new MenuDeConsola().getSesion();
+                if (user1 instanceof Cliente) {
                     //Cliente cliente = new Cliente(fieldPanel.getValue("Documento"), STYLESHEET_MODENA, STYLESHEET_MODENA, con, con, pesoEntero, STYLESHEET_MODENA, STYLESHEET_MODENA);
                 }
             });
-            
+
         });
 
         menuAutores.setOnAction(new HandlerAyuda());
@@ -497,7 +524,12 @@ public class BodyArt extends Application {
         @Override
         public void handle(ActionEvent event) {
             String parametro = campo.getText();
-            resultadota.setText(new Cliente().pesoIdeal(Float.parseFloat(parametro)));
+            try {
+                String a = new Cliente().pesoIdeal(Float.parseFloat(parametro));
+                resultadota.setText(a);
+            } catch (EstructuraNoValida ex) {
+                new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();
+            }
         }
     }
 
@@ -605,8 +637,12 @@ public class BodyArt extends Application {
         public void handle(ActionEvent event) {
             Instructor instructor = (Instructor) new MenuDeConsola().getSesion();
             String parametro = campo.getText();
-            Cliente cliente = instructor.consultarCliente(parametro);
-            resultadota.setText(instructor.calcularRutina(cliente));
+            try {
+                Cliente cliente = instructor.consultarCliente(parametro);
+                resultadota.setText(instructor.calcularRutina(cliente));
+            } catch (UsuarioInvalido ex) {
+                new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();
+            }
         }
     }
 
@@ -669,8 +705,12 @@ public class BodyArt extends Application {
             Instructor instructor = (Instructor) new MenuDeConsola().getSesion();
             String parametro = campo.getText();
             String parametro2 = campo2.getText();
-            Cliente cliente = instructor.consultarCliente(parametro);
-            resultadota.setText(instructor.calcularDieta(cliente, parametro2));
+            try {
+                Cliente cliente = instructor.consultarCliente(parametro);
+                resultadota.setText(instructor.calcularDieta(cliente, parametro2));
+            } catch (UsuarioInvalido ex) {
+                new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();
+            }
         }
     }
 
