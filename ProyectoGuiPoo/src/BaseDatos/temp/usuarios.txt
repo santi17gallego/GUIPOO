@@ -4,5 +4,5 @@ cliente 112233 JuanCamilo 123 69 1.7 21.0 m 45345345 permisos ConsultarPesoIdeal
 admin 567 JuanCamiloperra 567 permisos Administrador-RegistrarUsuario Administrador-ConsultarPermisos Administrador-ConsultarTodosLosPermisos Administrador-AgregarPermisos Administrador-EliminarPermisos Administrador-EliminarUsuario
 cliente 1234 JeanLDS 1234 22 70.0 1.65 m 12445678 permisos ConsultarPesoIdeal ConsultarCaloriasQuemadas
 cliente 3465356 Nitch 124 124 124.0 124.0 m 1234 permisos ConsultarPesoIdeal ConsultarCaloriasQuemadas
-cliente 1112 Xanti 1112 12 90.0 1.2 m 1231432534 permisos ConsultarPesoIdeal ConsultarCaloriasQuemadas
 cliente 555 Jean 555 21 80.0 1.7 m 21434 permisos ConsultarPesoIdeal ConsultarCaloriasQuemadas
+cliente 1112 Santi 1112 12 90.0 1.2 m 1231432534asd permisos ConsultarPesoIdeal ConsultarCaloriasQuemadas

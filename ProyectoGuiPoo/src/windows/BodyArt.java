@@ -3,12 +3,15 @@ package windows;
 import Excepciones.CampoVacio;
 import Excepciones.CaracterInvalido;
 import Excepciones.CedulaOContrasenaInvalida;
+import com.sun.deploy.util.StringUtils;
 import gestorAplicacion.paquete1.Administrador;
 import gestorAplicacion.paquete1.Cliente;
 import gestorAplicacion.paquete1.Instructor;
 import gestorAplicacion.paquete1.Usuario;
 import gestorAplicacion.paquete1.Vendedor;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.geometry.Insets;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
@@ -134,6 +137,10 @@ public class BodyArt extends Application {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setContentText(e.getMessage() + "\nCampos vacios:\n" + camposVacios);
                     alert.show();
+                }catch(NumberFormatException e){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setContentText("Error de formato en algún campo del formulario.");
+                    alert.show();
                 }
 
                 //Button atrasbtn = new Button("Atrás");
@@ -197,6 +204,7 @@ public class BodyArt extends Application {
                 default:
                     break;
             }
+            lb.setWrapText(true);
             miborderpane3_2.setCenter(lb);
             con2++;
         });
@@ -206,7 +214,14 @@ public class BodyArt extends Application {
                     + "El gimnasio BodyArt recibe aproximadamente 150 clientes al día, ofrece varios tipos de productos: rutinas, dietas y suplementos dietarios. Los clientes pueden por medio de esta aplicación consultar algunos datos básicos, reservar en línea y registrarse. \n"
                     + "Nuestros empleados tienen control total de la gestión de actividades que se realizan en el gimnasio, tales como control de clientes, eventos e inventario disponible en la tienda de suplementos. \n"
                     + "El administrador puede agregar empleados, puede modificar permisos de algunos de ellos haciendo que la aplicación sea completamente focalizada en grupos, por tanto, es completamente adaptable a las necesidades propias de cada sucursal del gimnasio o de cualquier organización.");
-            lb.setAlignment(Pos.TOP_LEFT);
+            lb.setBorder(new Border(new BorderStroke(Color.BLACK,
+                    BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+            lb.setTextFill(Color.web("WHITE"));
+            lb.setFont(new Font("Yu Gothic UI Semibold", 15));
+            lb.setTextAlignment(TextAlignment.JUSTIFY);
+            lb.setWrapText(true);
+//            BorderPane borderTop= new BorderPane();
+//            borderTop.
             miborderpane.setCenter(lb);
         });
         menuItemSalir.setOnAction((event) -> {
@@ -244,8 +259,6 @@ public class BodyArt extends Application {
         root3.setLeft(nombrelb);
         root3.setRight(miHbox);
         root3.setPadding(new Insets(5, 5, 5, 5));
-        miborderpane.setTop(root3);
-
         miborderpane.setTop(root3); //metimos primer grid a mi
         //hasta aca bien
 
@@ -347,10 +360,10 @@ public class BodyArt extends Application {
         lb.setMaxWidth(200);
         lb.setTextFill(Color.web("WHITE"));
         lb.setTextAlignment(TextAlignment.JUSTIFY);
-        lb.setContentDisplay(ContentDisplay.LEFT);
+        lb.setWrapText(true);
         miborderpane3_2.setCenter(lb);
 
-        return new Scene(miborderpane, 700, 500);
+        return new Scene(miborderpane, 800, 600);
     }
 
     public Scene escenaUsuario() {
@@ -442,6 +455,8 @@ public class BodyArt extends Application {
             guardarbtn.setOnAction((event2) -> {
 
                 String camposVacios = "";
+                
+            
                 for (int i = 0; i < textFieldList.size(); i++) {
                     TextField textF = textFieldList.get(i);
                     if (textF.getText().equals("")) {
@@ -449,6 +464,10 @@ public class BodyArt extends Application {
                     }
                 }
                 try {
+                    String genero = textFieldList.get(6).getText();
+                        if (!(genero.equals("f") || genero.equals("m"))) {
+                            throw new CaracterInvalido();
+                        }
                     if (!camposVacios.equals("")) {
                         throw new CampoVacio();
                     }
@@ -479,10 +498,17 @@ public class BodyArt extends Application {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setContentText(e.getMessage() + "\nCampos vacios:\n" + camposVacios);
                     alert.show();
+                }catch (CaracterInvalido ex) {
+                        new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();
+                } catch(NumberFormatException e){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setContentText("Error de formato en algún campo del formulario.");
+                    alert.show();
                 }
 
-            });
-            
+            }   
+);
+
             borrarbtn.setOnAction((event3) -> {
                 for (int i = 1; i < textFieldList.size(); i++) {
                     textFieldList.get(i).setText("");
