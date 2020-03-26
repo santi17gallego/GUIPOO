@@ -8,7 +8,7 @@ import java.io.PrintWriter;
 
 public class GestorSugerencia {
 
-    private static File file = new File("C:\\ProyectoPOO\\ProyectoPOO\\src\\BaseDatos\\temp\\sugerencias.txt");
+    private static File file = new File("C:\\GUIPOO\\ProyectoGuiPoo\\src\\BaseDatos\\temp\\sugerencias.txt");
     private static BufferedWriter bw = null;
     private static FileWriter fw = null;
     private static PrintWriter pw = null;

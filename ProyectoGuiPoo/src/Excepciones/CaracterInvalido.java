@@ -9,6 +9,10 @@ package Excepciones;
  *
  * @author Juan Camilo Hoyos
  */
-public class CaracterInvalido {
+public class CaracterInvalido extends ExceptionC2 {
+    
+    public CaracterInvalido() {
+        super("El género debe ser f o m");
+    }
     
 }

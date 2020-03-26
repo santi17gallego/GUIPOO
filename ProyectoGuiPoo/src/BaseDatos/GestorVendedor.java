@@ -15,8 +15,8 @@ import java.util.ArrayList;
 
 public class GestorVendedor {
 
-    private static File file = new File("C:\\ProyectoPOO\\ProyectoPOO\\src\\BaseDatos\\temp\\productos.txt");
-    private static File file2 = new File("C:\\ProyectoPOO\\ProyectoPOO\\src\\BaseDatos\\temp\\ventas.txt");
+    private static File file = new File("C:\\GUIPOO\\ProyectoGuiPoo\\src\\BaseDatos\\temp\\productos.txt");
+    private static File file2 = new File("C:\\GUIPOO\\ProyectoGuiPoo\\src\\BaseDatos\\temp\\ventas.txt");
     private static BufferedWriter bw = null;
     private static BufferedReader br = null;
     private static FileReader fr = null;

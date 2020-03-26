@@ -35,16 +35,17 @@ public class GestorUsuario {
             fw = new FileWriter(file, true);
             bw = new BufferedWriter(fw);
             pw = new PrintWriter(bw);
+            
             if (usuario instanceof Cliente) {
-                String menu = "permisos Cliente-ConsultarPesoIdeal Cliente-ConsultarCaloriasQuemadas Cliente-InscribirEvento *-RegistrarSugerencia"; //Permisos por defecto de cada usuario
+                String menu = "permisos ConsultarPesoIdeal ConsultarCaloriasQuemadas";
                 Cliente cliente = (Cliente) usuario;
                 pw.println("cliente " + usuario.getCedula() + " " + usuario.getNombre() + " " + usuario.getContrasena() + " "
                         + (int) cliente.getEdad() + " " + cliente.getPeso() + " " + cliente.getEstatura() + " " + cliente.getGenero() + " " + cliente.getTelefono() + " " + menu); //Se registra un cliente en el txt
             } else if (usuario instanceof Vendedor) {
-                String menu = "permisos Vendedor-RegistrarVenta Vendedor-ConsultarVentas Vendedor-ConsultarInventario Vendedor-RegistrarProducto Vendedor-RegistrarEvento *-RegistrarSugerencia";
+                String menu = "permisos ConsultarInventario";
                 pw.println("vendedor " + usuario.getCedula() + " " + usuario.getNombre() + " " + usuario.getContrasena() + " " + menu);
             } else if (usuario instanceof Instructor) {
-                String menu = "permisos Instructor-ConsultarDieta Instructor-ConsultarRutina Instructor-ConsultarImc Instructor-ConsultarTmb Instructor-ConsultarEstadoActual *-RegistrarSugerencia";
+                String menu = "permisos ConsultarDieta ConsultarRutina";
                 pw.println("instructor " + usuario.getCedula() + " " + usuario.getNombre() + " " + usuario.getContrasena() + " " + menu);
             }
             pw.close();
@@ -195,6 +196,47 @@ public class GestorUsuario {
             return cliente;
         } catch (Exception e) {
             return null;
+        }
+    }
+    
+    public static boolean ModificarUsuario(Usuario usuario) {
+        try {
+            fr = new FileReader(file);
+            br = new BufferedReader(fr);
+            String line = "", lines = "", permisos=" ";
+            while ((line = br.readLine()) != null) {
+                String cadena[] = line.split(" ");
+                if (cadena[1].equals(usuario.getCedula())) {
+                    permisos=permisos+line.substring(line.indexOf("permisos"));
+                }else{
+                    lines = lines + line + "\n";
+                }
+            }
+            br.close();
+            fr.close();
+            if (file.exists()) {
+                file.delete();
+            }
+            file.createNewFile();
+            fw = new FileWriter(file, true);
+            bw = new BufferedWriter(fw);
+            pw = new PrintWriter(bw);
+            pw.print(lines);
+            if(usuario instanceof Cliente){
+                Cliente cliente = (Cliente)usuario;
+                pw.print("cliente "+cliente.getCedula()+" "+cliente.getNombre()+" "+cliente.getContrasena()+" "+
+                        cliente.getEdad()+" "+cliente.getPeso()+" "+cliente.getEstatura()+" "+cliente.getGenero()+" "+cliente.getTelefono()+permisos);
+            }else if(usuario instanceof Administrador){
+                pw.print("admin "+usuario.getCedula()+" "+usuario.getNombre()+" "+usuario.getContrasena()+permisos);
+            }
+            pw.print("\n");
+            pw.close();
+            bw.close();
+            fw.close();
+            return true;
+
+        } catch (Exception e) {
+            return false;
         }
     }
 }

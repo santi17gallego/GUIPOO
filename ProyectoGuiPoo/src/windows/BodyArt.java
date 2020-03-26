@@ -1,21 +1,19 @@
 package windows;
 
+import Excepciones.CampoVacio;
+import Excepciones.CaracterInvalido;
 import Excepciones.CedulaOContrasenaInvalida;
-import Excepciones.EstructuraNoValida;
-import Excepciones.UsuarioInvalido;
+import gestorAplicacion.paquete1.Administrador;
 import gestorAplicacion.paquete1.Cliente;
 import gestorAplicacion.paquete1.Instructor;
 import gestorAplicacion.paquete1.Usuario;
 import gestorAplicacion.paquete1.Vendedor;
-import gestorAplicacion.paquete2.Suplemento;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.geometry.Insets;
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.*;
 import javafx.scene.control.*;
@@ -27,32 +25,27 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import uiMain.menuConsola.MenuDeConsola;
+import windows.Cliente.ConsultarCaloriasQuemadas;
+import windows.Cliente.ConsultarPesoIdeal;
+import windows.Instructor.ConsultarDieta;
+import windows.Instructor.ConsultarRutina;
+import windows.Vendedor.ConsultarInventario;
 
 public class BodyArt extends Application {
 
     private BorderPane centro;
 
-    public BorderPane getCentro() {
-        return centro;
-    }
     private Menu menuArchivo;
     private Menu menuProcesos = new Menu("Procesos y consultas");
     private Menu menuAyuda;
     private MenuItem menuItemUsuario;
     private MenuItem menuItemSalir = new MenuItem("Salir");
-    private MenuItem ConsultarPeso_Ideal;
     private MenuItem menuAutores;
 
     private Button salirbtn = new Button("Salir");
-    //slg
-    private Button enviarParametrobtn;
-    private Button enviarbtn;
 
     Button registrarsebtn = new Button("Registrarse");
-    Label informacion;
 
-    TextField campo;
-    TextField campo2;
     BorderPane miborderpane = new BorderPane();
     BorderPane miborderpane3_1 = new BorderPane();
     public TextArea resultadota;
@@ -61,9 +54,9 @@ public class BodyArt extends Application {
 
     //Login
     private Button ingresarbtn = new Button("Ingresar");
-    TextField usuariotf;
-    TextField contraseñatf;
-    Button descripcionbtn = new Button("Descripcion");
+    private TextField usuariotf;
+    private TextField contraseñatf;
+    private Button descripcionbtn = new Button("Descripcion");
     static int con = 1, con2 = 7;
 
     @Override
@@ -106,22 +99,46 @@ public class BodyArt extends Application {
             miborderpane.setCenter(migrid);
 
             registrarseEnviar.setOnAction((event1) -> {
-                Scene scene = primaryStage.getScene();
-                Cliente cliente = new Cliente(((TextField)scene.lookup("#Cédula")).getText(), ((TextField)scene.lookup("#Nombre")).getText(), ((TextField)scene.lookup("#Contraseña")).getText(), Integer.parseInt(fieldPanel.getValue("Peso")), Float.parseFloat(fieldPanel.getValue("Estatura")), Integer.parseInt(fieldPanel.getValue("Edad")), fieldPanel.getValue("Genero"), fieldPanel.getValue("Telefono"));
-                if (Cliente.registrarse(cliente)) {
-                    new MenuDeConsola().setSesion(cliente);
-                    String lista[] = {"ConsultarPesoIdeal", "ConsultarCaloriasQuemadas"};
-                    MenuDeConsola.crearMenu(lista);
-                    primaryStage.setScene(escenaUsuario());
-                } else {
-                    Alert alerta = new Alert(Alert.AlertType.ERROR);
-                    alerta.setContentText("Error al registrarse.");
-                    alerta.show();
+                ArrayList<TextField> textFieldList = fieldPanel.getTextFieldList();
+                String camposVacios = "";
+                for (int i = 0; i < textFieldList.size(); i++) {
+                    TextField textF = textFieldList.get(i);
+                    if (textF.getText().equals("")) {
+                        camposVacios = camposVacios + textF.getId() + "\n";
+                    }
                 }
-            });
-            //Button atrasbtn = new Button("Atrás");
-        });
+                try {
+                    if (!camposVacios.equals("")) {
+                        throw new CampoVacio();
+                    }
+                    try {
+                        String genero = textFieldList.get(6).getText();
+                        if (!(genero.equals("f") || genero.equals("m"))) {
+                            throw new CaracterInvalido();
+                        }
+                        Cliente cliente = new Cliente(textFieldList.get(0).getText(), textFieldList.get(1).getText(), textFieldList.get(2).getText(), Integer.parseInt(textFieldList.get(5).getText()), Float.parseFloat(textFieldList.get(3).getText()), Float.parseFloat(textFieldList.get(4).getText()), genero, textFieldList.get(7).getText());
+                        if (Cliente.registrarse(cliente)) {
+                            new MenuDeConsola().setSesion(cliente);
+                            String lista[] = {"ConsultarPesoIdeal", "ConsultarCaloriasQuemadas"};
+                            MenuDeConsola.crearMenu(lista);
+                            primaryStage.setScene(escenaUsuario());
+                        } else {
+                            Alert alerta = new Alert(Alert.AlertType.ERROR);
+                            alerta.setContentText("Error al registrarse.");
+                            alerta.show();
+                        }
+                    } catch (CaracterInvalido ex) {
+                        new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();
+                    }
+                } catch (CampoVacio e) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setContentText(e.getMessage() + "\nCampos vacios:\n" + camposVacios);
+                    alert.show();
+                }
 
+                //Button atrasbtn = new Button("Atrás");
+            });
+        });
         salirbtn.setOnAction((event) -> {
             //primaryStage.setScene(escenaInicial());
             primaryStage.close();
@@ -196,6 +213,7 @@ public class BodyArt extends Application {
             new MenuDeConsola().cerrarSesion();
             menuProcesos = new Menu("Procesos y consultas");
             primaryStage.setScene(escenaInicial());
+            //Juan, ponga el chat. T
 
         });
     }
@@ -215,25 +233,11 @@ public class BodyArt extends Application {
 
         miHbox.getChildren().addAll(descripcionbtn, salirbtn);
 
-//
-//        migridpane.setBorder(new Border(new BorderStroke(Color.BLACK,
-//                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-//        migridpane.setPadding(new Insets(5, 5, 5, 5));
-//        migridpane.setAlignment(Pos.CENTER);
-//
         Label nombrelb = new Label("BodyArt");
         nombrelb.setTextFill(Color.web("WHITE"));
         nombrelb.setFont(new Font("Yu Gothic UI Semibold", 20));
         nombrelb.setTextAlignment(TextAlignment.CENTER);
 
-//        
-//        
-//        
-//        migridpane.add(nombrelb, 1, 1);
-//        migridpane.add(salirbtn, 5, 1);
-//        migridpane.add(descripcionbtn, 6, 1);
-//        migridpane.setVgap(3);
-//        migriedpane.setHgap(5);
         BorderPane root3 = new BorderPane();
         root3.setBorder(new Border(new BorderStroke(Color.BLACK,
                 BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
@@ -389,15 +393,15 @@ public class BodyArt extends Application {
 //                Object innerInstance = ctor.newInstance(instanceClase);
 //                metodo.setOnAction((EventHandler<ActionEvent>) innerInstance);
                 if (opcionDeMenu.equals("ConsultarPesoIdeal")) {
-                    metodo.setOnAction(new ConsultarPesoIdeal());
+                    metodo.setOnAction(new HandlerConsultarPesoIdeal());
                 } else if (opcionDeMenu.equals("ConsultarCaloriasQuemadas")) {
-                    metodo.setOnAction(new ConsultarCaloriasQuemadas());
+                    metodo.setOnAction(new HandlerConsultarCaloriasQuemadas());
                 } else if (opcionDeMenu.equals("ConsultarRutina")) {
-                    metodo.setOnAction(new ConsultarRutina());
+                    metodo.setOnAction(new HandlerConsultarRutina());
                 } else if (opcionDeMenu.equals("ConsultarDieta")) {
-                    metodo.setOnAction(new ConsultarDieta());
+                    metodo.setOnAction(new HandlerConsultarDieta());
                 } else if (opcionDeMenu.equals("ConsultarInventario")) {
-                    metodo.setOnAction(new ConsultarInventario());
+                    metodo.setOnAction(new HandlerConsultarInventario());
                 }
                 //metodo.setOnAction((EventHandler<ActionEvent>) Class.forName("windows."+opcionDeMenu).newInstance());
                 menuProcesos.getItems().add(metodo);
@@ -428,16 +432,60 @@ public class BodyArt extends Application {
             }
             GridPane grid = fieldPanel.getGrid();
             Button borrarbtn = new Button("Borrar");
-            Button enviarbtn = new Button("Enviar");
+            Button guardarbtn = new Button("Guardar");
             grid.addColumn(0, borrarbtn);
-            grid.addColumn(1, enviarbtn);
+            grid.addColumn(1, guardarbtn);
 
             centro.setCenter(grid);
+            ArrayList<TextField> textFieldList = fieldPanel.getTextFieldList();
 
-            enviarbtn.setOnAction((event2) -> {
-                Usuario user1 = new MenuDeConsola().getSesion();
-                if (user1 instanceof Cliente) {
-                    //Cliente cliente = new Cliente(fieldPanel.getValue("Documento"), STYLESHEET_MODENA, STYLESHEET_MODENA, con, con, pesoEntero, STYLESHEET_MODENA, STYLESHEET_MODENA);
+            guardarbtn.setOnAction((event2) -> {
+
+                String camposVacios = "";
+                for (int i = 0; i < textFieldList.size(); i++) {
+                    TextField textF = textFieldList.get(i);
+                    if (textF.getText().equals("")) {
+                        camposVacios = camposVacios + textF.getId() + "\n";
+                    }
+                }
+                try {
+                    if (!camposVacios.equals("")) {
+                        throw new CampoVacio();
+                    }
+                    Usuario user1 = new MenuDeConsola().getSesion();
+                    boolean respuesta = false;
+                    if (user1 instanceof Cliente) {
+                        Cliente cliente = new Cliente(textFieldList.get(0).getText(), textFieldList.get(1).getText(), textFieldList.get(2).getText(), Integer.parseInt(textFieldList.get(5).getText()), Float.parseFloat(textFieldList.get(3).getText()), Float.parseFloat(textFieldList.get(4).getText()), textFieldList.get(6).getText(), textFieldList.get(7).getText());
+                        new MenuDeConsola().setSesion(cliente);
+                        respuesta = Usuario.ModificarUsuario(cliente);
+                    } else if (user1 instanceof Administrador) {
+                        respuesta = Usuario.ModificarUsuario(new Administrador(textFieldList.get(1).getText(), textFieldList.get(0).getText(), textFieldList.get(2).getText()));
+                    } else if (user1 instanceof Instructor) {
+                        respuesta = Usuario.ModificarUsuario(new Instructor(textFieldList.get(1).getText(), textFieldList.get(0).getText(), textFieldList.get(2).getText()));
+                    } else {
+                        respuesta = Usuario.ModificarUsuario(new Vendedor(textFieldList.get(1).getText(), textFieldList.get(0).getText(), textFieldList.get(2).getText()));
+                    }
+                    if (respuesta) {
+                        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+                        alerta.setContentText("Datos guardados correctamente");
+                        alerta.show();
+                    } else {
+                        Alert alerta = new Alert(Alert.AlertType.ERROR);
+                        alerta.setContentText("Error al modificar los datos.");
+                        alerta.show();
+                    }
+
+                } catch (CampoVacio e) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setContentText(e.getMessage() + "\nCampos vacios:\n" + camposVacios);
+                    alert.show();
+                }
+
+            });
+            
+            borrarbtn.setOnAction((event3) -> {
+                for (int i = 1; i < textFieldList.size(); i++) {
+                    textFieldList.get(i).setText("");
                 }
             });
 
@@ -458,6 +506,7 @@ public class BodyArt extends Application {
         centro.setCenter(form);
         root.setCenter(centro);
         return new Scene(root, 600, 500);
+
     }
 
     class HandlerAyuda implements EventHandler<ActionEvent> {
@@ -474,300 +523,53 @@ public class BodyArt extends Application {
         }
     }
 
-    //Slg
-    class ConsultarPesoIdeal implements EventHandler<ActionEvent> {
+//Slg
+    class HandlerConsultarPesoIdeal implements EventHandler<ActionEvent> {
 
         @Override
         public void handle(ActionEvent event) {
+            ConsultarPesoIdeal pesoIdeal = new ConsultarPesoIdeal();
+            centro.setCenter(pesoIdeal);
+        }
+    }
 
-            FlowPane general = new FlowPane(Orientation.VERTICAL);
-            general.setAlignment(Pos.CENTER);
-            FlowPane calcularPesoIdeal = new FlowPane();
-            calcularPesoIdeal.setVgap(5);
-            calcularPesoIdeal.setHgap(5);
-            general.setVgap(5);
-            general.setHgap(5);
-            calcularPesoIdeal.setBorder(new Border(new BorderStroke(Color.BLACK,
-                    BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-            calcularPesoIdeal.setPadding(new Insets(5, 5, 5, 5));
-            Label nombreProcesolb = new Label("Calcular peso ideal");
-            Label descripcionProcesolb = new Label("Simplemente agregando la estatura, !podemos imprimir tu peso ideal!");
-            nombreProcesolb.setBorder(new Border(new BorderStroke(Color.BLACK,
-                    BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-            nombreProcesolb.setPadding(new Insets(5, 5, 5, 5));
-            descripcionProcesolb.setBorder(new Border(new BorderStroke(Color.BLACK,
-                    BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-            descripcionProcesolb.setPadding(new Insets(5, 5, 5, 5));
-            nombreProcesolb.setMaxWidth(Double.MAX_VALUE);
-            descripcionProcesolb.setMaxWidth(Double.MAX_VALUE);
-            general.setLayoutX(Double.MAX_VALUE);
-            general.setLayoutY(Double.MAX_VALUE);
-            nombreProcesolb.setAlignment(Pos.CENTER);
-            descripcionProcesolb.setAlignment(Pos.CENTER);
-            informacion = new Label("Digite su estatura");
-            campo = new TextField();
-            enviarbtn = new Button("Enviar");
-            enviarParametrobtn = new Button("Calcular peso ideal");
-            resultadota = new TextArea();
-            calcularPesoIdeal.getChildren().addAll(informacion, campo, enviarbtn, resultadota);
-            general.getChildren().addAll(nombreProcesolb, descripcionProcesolb, calcularPesoIdeal);
+    class HandlerConsultarCaloriasQuemadas implements EventHandler<ActionEvent> {
 
-            centro.setCenter(general);
-
-            enviarbtn.setOnAction(new HandlerEnviarPeso());
+        @Override
+        public void handle(ActionEvent event) {
+            ConsultarCaloriasQuemadas ConsultarCaloriassQuemadas = new ConsultarCaloriasQuemadas();
+            centro.setCenter(ConsultarCaloriassQuemadas);
 
         }
     }
 
-    class HandlerEnviarPeso implements EventHandler<ActionEvent> {
+    class HandlerConsultarRutina implements EventHandler<ActionEvent> {
 
         @Override
         public void handle(ActionEvent event) {
-            String parametro = campo.getText();
-            try {
-                String a = new Cliente().pesoIdeal(Float.parseFloat(parametro));
-                resultadota.setText(a);
-            } catch (EstructuraNoValida ex) {
-                new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();
-            }
-        }
-    }
-
-    class ConsultarCaloriasQuemadas implements EventHandler<ActionEvent> {
-
-        @Override
-        public void handle(ActionEvent event) {
-
-            FlowPane general = new FlowPane(Orientation.VERTICAL);
-            general.setAlignment(Pos.CENTER);
-            FlowPane calcularPesoIdeal = new FlowPane();
-            calcularPesoIdeal.setVgap(5);
-            calcularPesoIdeal.setHgap(5);
-            general.setVgap(5);
-            general.setHgap(5);
-            calcularPesoIdeal.setBorder(new Border(new BorderStroke(Color.BLACK,
-                    BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-            calcularPesoIdeal.setPadding(new Insets(5, 5, 5, 5));
-            Label nombreProcesolb = new Label("Calcular kcalorias quemadas");
-            Label descripcionProcesolb = new Label("Al ingresar cierta cantidad de kilometros recorridos y dependiendo de ciertos factores externos\n"
-                    + "como peso, genero y entre otros, te decimos las kilo calorias quemadas por sesión.");
-            nombreProcesolb.setBorder(new Border(new BorderStroke(Color.BLACK,
-                    BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-            nombreProcesolb.setPadding(new Insets(5, 5, 5, 5));
-            descripcionProcesolb.setBorder(new Border(new BorderStroke(Color.BLACK,
-                    BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-            descripcionProcesolb.setPadding(new Insets(5, 5, 5, 5));
-            nombreProcesolb.setMaxWidth(Double.MAX_VALUE);
-            descripcionProcesolb.setMaxWidth(Double.MAX_VALUE);
-            general.setLayoutX(Double.MAX_VALUE);
-            general.setLayoutY(Double.MAX_VALUE);
-            nombreProcesolb.setAlignment(Pos.CENTER);
-            descripcionProcesolb.setAlignment(Pos.CENTER);
-            informacion = new Label("Digite distancia recorrida");
-            campo = new TextField();
-            enviarbtn = new Button("Enviar");
-            resultadota = new TextArea();
-            calcularPesoIdeal.getChildren().addAll(informacion, campo, enviarbtn, resultadota);
-            general.getChildren().addAll(nombreProcesolb, descripcionProcesolb, calcularPesoIdeal);
-
-            centro.setCenter(general);
-            enviarbtn.setOnAction(new HandlerEnviarDistancia());
+            ConsultarRutina RutinaIdeal = new ConsultarRutina();
+            centro.setCenter(RutinaIdeal);
 
         }
     }
 
-    class HandlerEnviarDistancia implements EventHandler<ActionEvent> {
+    class HandlerConsultarDieta implements EventHandler<ActionEvent> {
 
         @Override
         public void handle(ActionEvent event) {
-            Cliente cliente = (Cliente) new MenuDeConsola().getSesion();
-            String parametro = campo.getText();
-            resultadota.setText(cliente.calcularkcaloriasquemadas(Integer.parseInt(parametro)));
-        }
-    }
-
-    class ConsultarRutina implements EventHandler<ActionEvent> {
-
-        @Override
-        public void handle(ActionEvent event) {
-
-            FlowPane general = new FlowPane(Orientation.VERTICAL);
-            general.setAlignment(Pos.CENTER);
-            FlowPane calcularPesoIdeal = new FlowPane();
-            calcularPesoIdeal.setVgap(5);
-            calcularPesoIdeal.setHgap(5);
-            general.setVgap(5);
-            general.setHgap(5);
-            calcularPesoIdeal.setBorder(new Border(new BorderStroke(Color.BLACK,
-                    BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-            calcularPesoIdeal.setPadding(new Insets(5, 5, 5, 5));
-            Label nombreProcesolb = new Label("Calcular rutina");
-            Label descripcionProcesolb = new Label("Al proporcionar la cédula del cliente, generaremos una rutina adecuada\n"
-                    + "para nuestro cliente seleccionado.\n"
-                    + "Además cada rutina es única y especial para cada uno. ");
-            nombreProcesolb.setBorder(new Border(new BorderStroke(Color.BLACK,
-                    BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-            nombreProcesolb.setPadding(new Insets(5, 5, 5, 5));
-            descripcionProcesolb.setBorder(new Border(new BorderStroke(Color.BLACK,
-                    BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-            descripcionProcesolb.setPadding(new Insets(5, 5, 5, 5));
-            nombreProcesolb.setMaxWidth(Double.MAX_VALUE);
-            descripcionProcesolb.setMaxWidth(Double.MAX_VALUE);
-            general.setLayoutX(Double.MAX_VALUE);
-            general.setLayoutY(Double.MAX_VALUE);
-            nombreProcesolb.setAlignment(Pos.CENTER);
-            descripcionProcesolb.setAlignment(Pos.CENTER);
-            informacion = new Label("Digite la cédula del cliente");
-            campo = new TextField();
-            enviarbtn = new Button("Enviar");
-            resultadota = new TextArea();
-            calcularPesoIdeal.getChildren().addAll(informacion, campo, enviarbtn, resultadota);
-            general.getChildren().addAll(nombreProcesolb, descripcionProcesolb, calcularPesoIdeal);
-
-            centro.setCenter(general);
-
-            enviarbtn.setOnAction(new HandlerEnviarConsultarRutina());
+            ConsultarDieta DietaIdeal = new ConsultarDieta();
+            centro.setCenter(DietaIdeal);
 
         }
     }
 
-    class HandlerEnviarConsultarRutina implements EventHandler<ActionEvent> {
-
-        @Override
-        public void handle(ActionEvent event) {
-            Instructor instructor = (Instructor) new MenuDeConsola().getSesion();
-            String parametro = campo.getText();
-            try {
-                Cliente cliente = instructor.consultarCliente(parametro);
-                resultadota.setText(instructor.calcularRutina(cliente));
-            } catch (UsuarioInvalido ex) {
-                new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();
-            }
-        }
-    }
-
-    class ConsultarDieta implements EventHandler<ActionEvent> {
+    class HandlerConsultarInventario implements EventHandler<ActionEvent> {
 
         @Override
         public void handle(ActionEvent event) {
 
-            FlowPane general = new FlowPane(Orientation.VERTICAL);
-            general.setAlignment(Pos.CENTER);
-            FlowPane calcularPesoIdeal = new FlowPane();
-            calcularPesoIdeal.setVgap(5);
-            calcularPesoIdeal.setHgap(5);
-            general.setVgap(5);
-            general.setHgap(5);
-            calcularPesoIdeal.setBorder(new Border(new BorderStroke(Color.BLACK,
-                    BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-            calcularPesoIdeal.setPadding(new Insets(5, 5, 5, 5));
-            Label nombreProcesolb = new Label("Consultar dieta");
-            Label descripcionProcesolb = new Label("Al proporcionar la cédula del cliente, generaremos una rutina adecuada\n"
-                    + "para nuestro cliente seleccionado.\n"
-                    + "Además cada rutina es única y especial para cada uno. ");
-            nombreProcesolb.setBorder(new Border(new BorderStroke(Color.BLACK,
-                    BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-            nombreProcesolb.setPadding(new Insets(5, 5, 5, 5));
-            descripcionProcesolb.setBorder(new Border(new BorderStroke(Color.BLACK,
-                    BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-            descripcionProcesolb.setPadding(new Insets(5, 5, 5, 5));
-            nombreProcesolb.setMaxWidth(Double.MAX_VALUE);
-            descripcionProcesolb.setMaxWidth(Double.MAX_VALUE);
-            general.setLayoutX(Double.MAX_VALUE);
-            general.setLayoutY(Double.MAX_VALUE);
-            nombreProcesolb.setAlignment(Pos.CENTER);
-            descripcionProcesolb.setAlignment(Pos.CENTER);
-            campo = new TextField();
-            campo.setPromptText("Cédula del cliente");
-            campo2 = new TextField();
-            campo2.setPromptText("Cantidad de ejercicio");
-            enviarbtn = new Button("Enviar");
-            resultadota = new TextArea();
-            resultadota.setText("Ingrese cantidad de ejercicio (si es poco: 2 o menos días (digite 1)\n"
-                    + "Si es ligero: 3 días (digite 2)\n"
-                    + "Si es moderado: 3-5 días (digite 3)\n"
-                    + "Si es deportista: 6-7 días (digite 4)\n"
-                    + "Si es atleta: 7 días mañana y tarde (digite 5)");
-            calcularPesoIdeal.getChildren().addAll(campo, campo2, enviarbtn, resultadota);
-            general.getChildren().addAll(nombreProcesolb, descripcionProcesolb, calcularPesoIdeal);
-
-            centro.setCenter(general);
-
-            enviarbtn.setOnAction(new HandlerEnviarConsultarDieta());
-
-        }
-    }
-
-    class HandlerEnviarConsultarDieta implements EventHandler<ActionEvent> {
-
-        @Override
-        public void handle(ActionEvent event) {
-            Instructor instructor = (Instructor) new MenuDeConsola().getSesion();
-            String parametro = campo.getText();
-            String parametro2 = campo2.getText();
-            try {
-                Cliente cliente = instructor.consultarCliente(parametro);
-                resultadota.setText(instructor.calcularDieta(cliente, parametro2));
-            } catch (UsuarioInvalido ex) {
-                new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();
-            }
-        }
-    }
-
-    class ConsultarInventario implements EventHandler<ActionEvent> {
-
-        @Override
-        public void handle(ActionEvent event) {
-
-            FlowPane general = new FlowPane(Orientation.VERTICAL);
-            general.setAlignment(Pos.CENTER);
-            FlowPane calcularPesoIdeal = new FlowPane();
-            calcularPesoIdeal.setVgap(5);
-            calcularPesoIdeal.setHgap(5);
-            general.setVgap(5);
-            general.setHgap(5);
-            calcularPesoIdeal.setBorder(new Border(new BorderStroke(Color.BLACK,
-                    BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-            calcularPesoIdeal.setPadding(new Insets(5, 5, 5, 5));
-            Label nombreProcesolb = new Label("Consultar inventario");
-            Label descripcionProcesolb = new Label("Al usar este proceso, este no necesita ningun parámetro y automáticamente\n"
-                    + "hace un listado de los productos que se encuentran en nuestro gimnasio BodyArt.");
-            nombreProcesolb.setBorder(new Border(new BorderStroke(Color.BLACK,
-                    BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-            nombreProcesolb.setPadding(new Insets(5, 5, 5, 5));
-            descripcionProcesolb.setBorder(new Border(new BorderStroke(Color.BLACK,
-                    BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-            descripcionProcesolb.setPadding(new Insets(5, 5, 5, 5));
-            nombreProcesolb.setMaxWidth(Double.MAX_VALUE);
-            descripcionProcesolb.setMaxWidth(Double.MAX_VALUE);
-            general.setLayoutX(Double.MAX_VALUE);
-            general.setLayoutY(Double.MAX_VALUE);
-            nombreProcesolb.setAlignment(Pos.CENTER);
-            descripcionProcesolb.setAlignment(Pos.CENTER);
-            campo = new TextField();
-            enviarbtn = new Button("Consultar inventario");
-            resultadota = new TextArea();
-            calcularPesoIdeal.getChildren().addAll(enviarbtn, resultadota);
-            general.getChildren().addAll(nombreProcesolb, descripcionProcesolb, calcularPesoIdeal);
-
-            centro.setCenter(general);
-
-            enviarbtn.setOnAction(new HandlerEnviarConsultarInventario());
-
-        }
-    }
-
-    class HandlerEnviarConsultarInventario implements EventHandler<ActionEvent> {
-
-        @Override
-        public void handle(ActionEvent event) {
-            Vendedor vendedor = (Vendedor) new MenuDeConsola().getSesion();
-            ArrayList<Suplemento> a = vendedor.consultarInventario();
-            String inventario = "Nombre Precio Descripción\n";
-            for (Suplemento suplemento : a) {
-                inventario = inventario + suplemento.getNombre() + " " + suplemento.getPrecio() + " " + suplemento.getDescripcion() + "\n";
-            }
-            resultadota.setText(inventario);
+            ConsultarInventario InventarioIdeal = new ConsultarInventario();
+            centro.setCenter(InventarioIdeal);
         }
     }
 }

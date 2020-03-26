@@ -53,4 +53,7 @@ public abstract class Usuario {
         return GestorUsuario.IniciarSesion(cedula, contrasena);
     }
     
+    public static boolean ModificarUsuario(Usuario usuario){
+        return GestorUsuario.ModificarUsuario(usuario);
+    }
 }

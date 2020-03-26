@@ -10,8 +10,8 @@ import java.util.Arrays;
 
 public class GestorPermiso {
 
-    private static File file = new File("C:\\ProyectoPOO\\ProyectoPOO\\src\\BaseDatos\\temp\\usuarios.txt");
-    private static File file2 = new File("C:\\ProyectoPOO\\ProyectoPOO\\src\\BaseDatos\\temp\\permisos.txt");
+    private static File file = new File("C:\\GUIPOO\\ProyectoGuiPoo\\src\\BaseDatos\\temp\\usuarios.txt");
+    private static File file2 = new File("C:\\GUIPOO\\ProyectoGuiPoo\\src\\BaseDatos\\temp\\permisos.txt");
     private static BufferedWriter bw = null;
     private static BufferedReader br = null;
     private static FileReader fr = null;

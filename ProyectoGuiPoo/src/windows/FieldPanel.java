@@ -1,5 +1,7 @@
 package windows;
 
+import java.util.ArrayList;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -13,6 +15,12 @@ public class FieldPanel extends Pane {
     private GridPane grid = new GridPane();
     private String[] criterios;
     private String[] valores;
+    
+    private ArrayList<TextField> textFieldList= new ArrayList<TextField>();
+
+    public ArrayList<TextField> getTextFieldList() {
+        return textFieldList;
+    }
 
     public FieldPanel(String tituloCriterios, String[] criterios, String tituloValores, String[] valores,
             boolean[] habilitado) {
@@ -34,13 +42,12 @@ public class FieldPanel extends Pane {
                     
                 }
             }
+            textFieldList.add(textField);
             grid.addColumn(1, textField);
         }
 
     }
     
-    public void reset(){
-    }
 
     public GridPane getGrid() {
         return grid;
@@ -56,4 +63,16 @@ public class FieldPanel extends Pane {
         }
         return valor;
     }
+    public String getValue(final int row, final int column) {
+        String result = null;
+        ObservableList<Node> childrens = grid.getChildren();
+        for (Node node : childrens) {
+            if (grid.getRowIndex(node) == row && grid.getColumnIndex(node) == column) {
+                result = ((TextField)node).getText();
+                break;
+            }
+        }
+        return result;
+    }
+    
 }

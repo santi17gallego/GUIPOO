@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class GestorEvento {
 
-    private static File file = new File("C:\\ProyectoPOO\\ProyectoPOO\\src\\BaseDatos\\temp\\eventos.txt");
+    private static File file = new File("C:\\GUIPOO\\ProyectoGuiPoo\\src\\BaseDatos\\temp\\eventos.txt");
     private static BufferedWriter bw = null;
     private static BufferedReader br = null;
     private static FileReader fr = null;
