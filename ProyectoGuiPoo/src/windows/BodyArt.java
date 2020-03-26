@@ -28,6 +28,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import uiMain.menuConsola.MenuDeConsola;
+import windows.Administrador.ConsultarTodosLosPermisos;
 import windows.Cliente.ConsultarCaloriasQuemadas;
 import windows.Cliente.ConsultarPesoIdeal;
 import windows.Instructor.ConsultarDieta;
@@ -137,7 +138,7 @@ public class BodyArt extends Application {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setContentText(e.getMessage() + "\nCampos vacios:\n" + camposVacios);
                     alert.show();
-                }catch(NumberFormatException e){
+                } catch (NumberFormatException e) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setContentText("Error de formato en algún campo del formulario.");
                     alert.show();
@@ -152,7 +153,7 @@ public class BodyArt extends Application {
         });
 
         miborderpane3_1.setOnMouseEntered((event) -> {
-            if (con == 5) {
+            if (con == 6) {
                 con = 1;
             }
             Image img = new Image("imagenes/" + con + ".jpg");
@@ -171,34 +172,30 @@ public class BodyArt extends Application {
             ImageView imgv = new ImageView(img);
             imgv.setFitWidth(90);
             imgv.setFitHeight(90);
-//            HBox hbx = new HBox();
-//            hbx.getChildren().add(imgv);
-//            StackPane stp = new StackPane();
-//            stp.getChildren().addAll(new Label("Nombre: "), new Label("Edad: "), new Label("Genero: "));
-//            hbx.getChildren().add(stp);
-            miborderpane3_2.setTop(imgv);
+            BorderPane imgvPane = new BorderPane();
+            imgvPane.setCenter(imgv);
+            miborderpane3_2.setTop(imgvPane);
             Label lb = new Label();
             lb.setMaxWidth(200);
             lb.setTextFill(Color.web("WHITE"));
             switch (con2) {
                 case 6:
-                    lb.setText("Mi nombre es Juan Camilo Muñoz\n"
-                            + " soy estudiante de tercer semestre de\n "
-                            + "ingeniería de sistemas, tengo 21 años,\n"
-                            + "egresado del Sena, salí graduado con honores\n"
-                            + "en la tecnologia de programación\n"
-                            + "actualmente vivo con mis padres en la ciudad de medellin.");
+                    lb.setText("Mi nombre es Juan Camilo Muñoz"
+                            + " soy estudiante de tercer semestre de "
+                            + "ingeniería de sistemas, tengo 21 años, "
+                            + "soy egresado del Sena en analisís y desarrollo de sistemas de información"
+                            + ", actualmente vivo en la ciudad de Medellín.");
                     break;
                 case 7:
-                    lb.setText("Mi nombre es Jean Carlo Herrera Delgado soy estudiante de cuarto semestre de ingeniería de sistemas\n"
-                            + "tengo 21 años,soy músico-compositor y cocreador de la banda young blood, actualmente vivo en medellin pero mis padres resíden en Puerto Berrío.");
+                    lb.setText("Mi nombre es Jean Carlo Herrera Delgado soy estudiante de cuarto semestre de ingeniería de sistemas "
+                            + "tengo 21 años, soy músico, compositor y cocreador de la banda young blood, actualmente vivo en medellin pero mis padres resíden en Puerto Berrío.");
                     break;
                 case 8:
-                    lb.setText("Mi nombre es Santiago López Gallego, soy estudiante de tercer semestre de ingeniería de sistemas\n"
+                    lb.setText("Mi nombre es Santiago López Gallego, soy estudiante de tercer semestre de ingeniería de sistemas "
                             + "tengo 19 años, saxofonista de alto nivel para la banda EL Retiro. Actualmente resido en el Retiro.");
                     break;
                 case 9:
-                    lb.setText("Mi nombre es Juan Camilo Hoyos, soy estudiante de cuarto semestre de ingeniería de sistemas\n"
+                    lb.setText("Mi nombre es Juan Camilo Hoyos, soy estudiante de cuarto semestre de ingeniería de sistemas "
                             + "tengo 24 años, soy tecnólogo en gestión de redes egresado del Sena, vivo en medellín pero soy huilense. ");
                     break;
                 default:
@@ -302,7 +299,7 @@ public class BodyArt extends Application {
         saludobl.setTextAlignment(TextAlignment.CENTER);
         saludobl.setTextFill(Color.web("WHITE"));
         saludobl.setFont(new Font("Corbel Light", 20));
-        miborderpane.setStyle("-fx-background-color: #006699;");
+        miborderpane.setStyle("-fx-background-color: #3B98F1;");
 
         miborderpane2_1.setCenter(saludobl);
 
@@ -348,15 +345,19 @@ public class BodyArt extends Application {
         ImageView imgv2 = new ImageView(img2);
         imgv2.setFitWidth(90);
         imgv2.setFitHeight(90);
+        BorderPane imgvPane = new BorderPane();
+        imgvPane.setCenter(imgv2);
 //            HBox hbx = new HBox();
 //            hbx.getChildren().add(imgv);
 //            StackPane stp = new StackPane();
 //            stp.getChildren().addAll(new Label("Nombre: "), new Label("Edad: "), new Label("Genero: "));
 //            hbx.getChildren().add(stp);
-        miborderpane3_2.setTop(imgv2);
-        Label lb = new Label("Mi nombre es Juan Camilo Muñoz soy estudiante de tercer semestre de ingeniería de sistemas\n"
-                + "tengo 21 años, egresado del Sena, salí graduado con honores en la tecnologia de programación\n"
-                + "actualmente vivo con mis padres en la ciudad de medellin.");
+        miborderpane3_2.setTop(imgvPane);
+        Label lb = new Label("Mi nombre es Juan Camilo Muñoz"
+                + " soy estudiante de tercer semestre de "
+                + "ingeniería de sistemas, tengo 21 años, "
+                + "soy egresado del Sena en analisís y desarrollo de sistemas de información"
+                + ", actualmente vivo en la ciudad de Medellín.");
         lb.setMaxWidth(200);
         lb.setTextFill(Color.web("WHITE"));
         lb.setTextAlignment(TextAlignment.JUSTIFY);
@@ -393,31 +394,45 @@ public class BodyArt extends Application {
         menuAyuda.getItems().add(menuAutores);
 
         try {
-            ArrayList<String> listaMenu = new MenuDeConsola().getListaMenu();
-            for (String opcionDeMenu : listaMenu) {
-                //Hyperlink linkOpcion = new Hyperlink(opcionDeMenu);
-                MenuItem metodo = new MenuItem(opcionDeMenu);
-//                Class<?> clase = Class.forName("windows.BodyArt");
-//                Object instanceClase = clase.newInstance();
-//
-//                Class<?> innerClase = Class.forName("windows.BodyArt$" + opcionDeMenu);
-//                Constructor<?> ctor = innerClase.getDeclaredConstructor(clase);
-//
-//                Object innerInstance = ctor.newInstance(instanceClase);
-//                metodo.setOnAction((EventHandler<ActionEvent>) innerInstance);
-                if (opcionDeMenu.equals("ConsultarPesoIdeal")) {
-                    metodo.setOnAction(new HandlerConsultarPesoIdeal());
-                } else if (opcionDeMenu.equals("ConsultarCaloriasQuemadas")) {
-                    metodo.setOnAction(new HandlerConsultarCaloriasQuemadas());
-                } else if (opcionDeMenu.equals("ConsultarRutina")) {
-                    metodo.setOnAction(new HandlerConsultarRutina());
-                } else if (opcionDeMenu.equals("ConsultarDieta")) {
-                    metodo.setOnAction(new HandlerConsultarDieta());
-                } else if (opcionDeMenu.equals("ConsultarInventario")) {
-                    metodo.setOnAction(new HandlerConsultarInventario());
+            MenuDeConsola menu = new MenuDeConsola();
+            ArrayList<String> listaMenu = menu.getListaMenu();
+            Usuario sesion = menu.getSesion();
+            if (sesion instanceof Cliente) {
+                for (String opcionDeMenu : listaMenu) {
+                    MenuItem metodo = new MenuItem(opcionDeMenu);
+                    if (opcionDeMenu.equals("ConsultarPesoIdeal")) {
+                        metodo.setOnAction(new HandlerConsultarPesoIdeal());
+                    } else if (opcionDeMenu.equals("ConsultarCaloriasQuemadas")) {
+                        metodo.setOnAction(new HandlerConsultarCaloriasQuemadas());
+                    }
+                    menuProcesos.getItems().add(metodo);
                 }
-                //metodo.setOnAction((EventHandler<ActionEvent>) Class.forName("windows."+opcionDeMenu).newInstance());
-                menuProcesos.getItems().add(metodo);
+            } else if (sesion instanceof Instructor) {
+                for (String opcionDeMenu : listaMenu) {
+                    MenuItem metodo = new MenuItem(opcionDeMenu);
+                    if (opcionDeMenu.equals("ConsultarRutina")) {
+                        metodo.setOnAction(new HandlerConsultarRutina());
+                    } else if (opcionDeMenu.equals("ConsultarDieta")) {
+                        metodo.setOnAction(new HandlerConsultarDieta());
+                    }
+                    menuProcesos.getItems().add(metodo);
+                }
+            } else if (sesion instanceof Vendedor) {
+                for (String opcionDeMenu : listaMenu) {
+                    MenuItem metodo = new MenuItem(opcionDeMenu);
+                    if (opcionDeMenu.equals("ConsultarInventario")) {
+                        metodo.setOnAction(new HandlerConsultarInventario());
+                    }
+                    menuProcesos.getItems().add(metodo);
+                }
+            } else{
+                for (String opcionDeMenu : listaMenu) {
+                    MenuItem metodo = new MenuItem(opcionDeMenu);
+                    if (opcionDeMenu.equals("ConsultarTodosLosPermisos")) {
+                        metodo.setOnAction(new HandlerConsultarTodosLosPermisos());
+                    }
+                    menuProcesos.getItems().add(metodo);
+                }
             }
 
         } catch (Exception ex) {
@@ -455,8 +470,7 @@ public class BodyArt extends Application {
             guardarbtn.setOnAction((event2) -> {
 
                 String camposVacios = "";
-                
-            
+
                 for (int i = 0; i < textFieldList.size(); i++) {
                     TextField textF = textFieldList.get(i);
                     if (textF.getText().equals("")) {
@@ -465,9 +479,9 @@ public class BodyArt extends Application {
                 }
                 try {
                     String genero = textFieldList.get(6).getText();
-                        if (!(genero.equals("f") || genero.equals("m"))) {
-                            throw new CaracterInvalido();
-                        }
+                    if (!(genero.equals("f") || genero.equals("m"))) {
+                        throw new CaracterInvalido();
+                    }
                     if (!camposVacios.equals("")) {
                         throw new CampoVacio();
                     }
@@ -498,16 +512,16 @@ public class BodyArt extends Application {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setContentText(e.getMessage() + "\nCampos vacios:\n" + camposVacios);
                     alert.show();
-                }catch (CaracterInvalido ex) {
-                        new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();
-                } catch(NumberFormatException e){
+                } catch (CaracterInvalido ex) {
+                    new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();
+                } catch (NumberFormatException e) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setContentText("Error de formato en algún campo del formulario.");
                     alert.show();
                 }
 
-            }   
-);
+            }
+            );
 
             borrarbtn.setOnAction((event3) -> {
                 for (int i = 1; i < textFieldList.size(); i++) {
@@ -596,6 +610,16 @@ public class BodyArt extends Application {
 
             ConsultarInventario InventarioIdeal = new ConsultarInventario();
             centro.setCenter(InventarioIdeal);
+        }
+    }
+
+    class HandlerConsultarTodosLosPermisos implements EventHandler<ActionEvent> {
+
+        @Override
+        public void handle(ActionEvent event) {
+
+            ConsultarTodosLosPermisos todosLosPermisos = new ConsultarTodosLosPermisos();
+            centro.setCenter(todosLosPermisos);
         }
     }
 }
