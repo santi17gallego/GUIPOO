@@ -573,7 +573,7 @@ public class BodyArt extends Application {
                     + "\nJuan Camilo Muñoz López"
                     + "\nJuan Camilo Hoyos Peña"
                     + "\nJean Carlo Herrera Delgado"
-                    + "\nSantiago López Gallego\");
+                    + "\nSantiago López Gallego");
             alert.show();
         }
     }
