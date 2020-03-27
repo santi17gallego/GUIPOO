@@ -50,8 +50,8 @@ public class ConsultarPermisos extends FlowPane{
         eliminarUsuario.setBorder(new Border(new BorderStroke(Color.BLACK,
                 BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         eliminarUsuario.setPadding(new Insets(5, 5, 5, 5));
-        Label nombreProcesolb = new Label("Eliminar usuario");
-        Label descripcionProcesolb = new Label("Con este método el administrador puede eliminar usuarios.");
+        Label nombreProcesolb = new Label("Consultar permisos de usuario");
+        Label descripcionProcesolb = new Label("Con este método el administrador puede consultar los permisos de usuario.");
         nombreProcesolb.setBorder(new Border(new BorderStroke(Color.BLACK,
                 BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         nombreProcesolb.setPadding(new Insets(5, 5, 5, 5));
