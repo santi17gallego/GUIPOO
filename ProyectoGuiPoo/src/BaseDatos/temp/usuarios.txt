@@ -1,6 +1,6 @@
 admin 567 JuanCamilo 567 permisos RegistrarUsuario ConsultarPermisos ConsultarTodosLosPermisos AgregarPermisos EliminarPermisos EliminarUsuario
 cliente 1112 Santi 1112 12 90.0 1.2 m 1231432534asd permisos ConsultarPesoIdeal ConsultarCaloriasQuemadas
 cliente 1234 Juan 2020 25 68.0 1.7 m 4566 permisos ConsultarPesoIdeal ConsultarCaloriasQuemadas
-instructor Manuel 2121 4524 permisos ConsultarDieta ConsultarRutina
-vendedor Raul 678 000 permisos ConsultarInventario
-cliente 112233 JuanCamilo 123 69 1.7 21.0 m 45345345 permisos InscribirEvento ConsultarPesoIdeal
+instructor 2121 Manuel 4524 permisos ConsultarDieta ConsultarRutina
+vendedor 678 Raul 000 permisos ConsultarInventario
+cliente 112233 JuanCamilo 123 69 1.7 21.0 m 45345345 permisos ConsultarPesoIdeal ConsultarCaloriasQuemadas
