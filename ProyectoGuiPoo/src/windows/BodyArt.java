@@ -3,21 +3,16 @@ package windows;
 import Excepciones.CampoVacio;
 import Excepciones.CaracterInvalido;
 import Excepciones.CedulaOContrasenaInvalida;
-import com.sun.deploy.util.StringUtils;
 import gestorAplicacion.paquete1.Administrador;
 import gestorAplicacion.paquete1.Cliente;
 import gestorAplicacion.paquete1.Instructor;
 import gestorAplicacion.paquete1.Usuario;
 import gestorAplicacion.paquete1.Vendedor;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.geometry.Insets;
 import javafx.application.Application;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -28,7 +23,12 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import uiMain.menuConsola.MenuDeConsola;
+import windows.Administrador.AgregarPermisos;
+import windows.Administrador.ConsultarPermisos;
 import windows.Administrador.ConsultarTodosLosPermisos;
+import windows.Administrador.EliminarPermisos;
+import windows.Administrador.EliminarUsuario;
+import windows.Administrador.RegistrarUsuario;
 import windows.Cliente.ConsultarCaloriasQuemadas;
 import windows.Cliente.ConsultarPesoIdeal;
 import windows.Instructor.ConsultarDieta;
@@ -430,6 +430,16 @@ public class BodyArt extends Application {
                     MenuItem metodo = new MenuItem(opcionDeMenu);
                     if (opcionDeMenu.equals("ConsultarTodosLosPermisos")) {
                         metodo.setOnAction(new HandlerConsultarTodosLosPermisos());
+                    }else if (opcionDeMenu.equals("RegistrarUsuario")) {
+                        metodo.setOnAction(new HandlerRegistrarUsuario());
+                    }else if (opcionDeMenu.equals("EliminarUsuario")) {
+                        metodo.setOnAction(new HandlerEliminarUsuario());
+                    }else if (opcionDeMenu.equals("ConsultarPermisos")) {
+                        metodo.setOnAction(new HandlerConsultarPermisos());
+                    }else if (opcionDeMenu.equals("AgregarPermisos")) {
+                        metodo.setOnAction(new HandlerAgregarPermisos());
+                    }else if (opcionDeMenu.equals("EliminarPermisos")) {
+                        metodo.setOnAction(new HandlerEliminarPermisos());
                     }
                     menuProcesos.getItems().add(metodo);
                 }
@@ -620,6 +630,51 @@ public class BodyArt extends Application {
 
             ConsultarTodosLosPermisos todosLosPermisos = new ConsultarTodosLosPermisos();
             centro.setCenter(todosLosPermisos);
+        }
+    }
+    class HandlerRegistrarUsuario implements EventHandler<ActionEvent> {
+
+        @Override
+        public void handle(ActionEvent event) {
+
+            RegistrarUsuario registrarUsuario = new RegistrarUsuario();
+            centro.setCenter(registrarUsuario);
+        }
+    }
+    class HandlerEliminarUsuario implements EventHandler<ActionEvent> {
+
+        @Override
+        public void handle(ActionEvent event) {
+
+            EliminarUsuario eliminarUsuario = new EliminarUsuario();
+            centro.setCenter(eliminarUsuario);
+        }
+    }
+    class HandlerConsultarPermisos implements EventHandler<ActionEvent> {
+
+        @Override
+        public void handle(ActionEvent event) {
+
+            ConsultarPermisos consultarPermisos = new ConsultarPermisos();
+            centro.setCenter(consultarPermisos);
+        }
+    }
+    class HandlerAgregarPermisos implements EventHandler<ActionEvent> {
+
+        @Override
+        public void handle(ActionEvent event) {
+
+            AgregarPermisos agregarPermisos = new AgregarPermisos();
+            centro.setCenter(agregarPermisos);
+        }
+    }
+    class HandlerEliminarPermisos implements EventHandler<ActionEvent> {
+
+        @Override
+        public void handle(ActionEvent event) {
+
+            EliminarPermisos eliminarPermisos = new EliminarPermisos();
+            centro.setCenter(eliminarPermisos);
         }
     }
 }
