@@ -1,10 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package windows.Administrador;
-
+/*
+    * Este modulo se encarga de eliminar permisos a los usuarios.
+    * Autores: Juan Camilo Hoyos, Jean Carlo Herrera, Santiago López Gallego, Juan Camilo Muñoz
+     */
 import gestorAplicacion.paquete1.Administrador;
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
@@ -26,11 +24,10 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import uiMain.menuConsola.MenuDeConsola;
-
-/**
- *
- * @author santi
- */
+/*
+    * Esta clase retorna un Pane con los datos necesarios para eliminar los permisos.
+    * Autores: Juan Camilo Hoyos, Jean Carlo Herrera, Santiago López Gallego, Juan Camilo Muñoz
+     */
 public class EliminarPermisos extends FlowPane{
     
     private Label informacion;
@@ -97,6 +94,10 @@ public class EliminarPermisos extends FlowPane{
 
     }
 
+/*
+    * Esta clase se encarga de eliminar permisos a los usuarios.
+    * Autores: Juan Camilo Hoyos, Jean Carlo Herrera, Santiago López Gallego, Juan Camilo Muñoz
+     */
     public class HandlerConsultarPermisos implements EventHandler<ActionEvent> {
 
         @Override

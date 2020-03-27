@@ -1,5 +1,9 @@
 package windows;
 
+/*
+ * Modulo principal del proyecto.
+ * Autores: Juan Camilo Hoyos, Jean Carlo Herrera, Santiago López Gallego, Juan Camilo Muñoz
+ */
 import Excepciones.CampoVacio;
 import Excepciones.CaracterInvalido;
 import Excepciones.CedulaOContrasenaInvalida;
@@ -35,6 +39,11 @@ import windows.Instructor.ConsultarDieta;
 import windows.Instructor.ConsultarRutina;
 import windows.Vendedor.ConsultarInventario;
 
+
+/*
+ * Clase aplicación principal del proyecto.
+ * Autores: Juan Camilo Hoyos, Jean Carlo Herrera, Santiago López Gallego, Juan Camilo Muñoz
+ */
 public class BodyArt extends Application {
 
     private BorderPane centro;
@@ -48,20 +57,18 @@ public class BodyArt extends Application {
 
     private Button salirbtn = new Button("Salir");
 
-    Button registrarsebtn = new Button("Registrarse");
+    private Button registrarsebtn = new Button("Registrarse");
 
-    BorderPane miborderpane = new BorderPane();
-    BorderPane miborderpane3_1 = new BorderPane();
-    public TextArea resultadota;
-    BorderPane miborderpane3_2 = new BorderPane();
-    int pesoEntero;
+    private BorderPane miborderpane = new BorderPane();
+    private BorderPane miborderpane3_1 = new BorderPane();
+    private BorderPane miborderpane3_2 = new BorderPane();
 
     //Login
     private Button ingresarbtn = new Button("Ingresar");
     private TextField usuariotf;
     private TextField contraseñatf;
     private Button descripcionbtn = new Button("Descripcion");
-    static int con = 1, con2 = 7;
+    private static int con = 1, con2 = 7;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -90,9 +97,6 @@ public class BodyArt extends Application {
             String valores[] = null;
             boolean estado[] = null;
             FieldPanel fieldPanel = new FieldPanel("Datos", criterios, "Valores", valores, estado);
-//                form.setPadding(new Insets(20, 20, 20, 20));
-//                form.setHgap(10);
-//                form.setVgap(10);
 
             GridPane migrid = fieldPanel.getGrid();
             Button registrarseEnviar = new Button("Registrarse");
@@ -217,16 +221,12 @@ public class BodyArt extends Application {
             lb.setFont(new Font("Yu Gothic UI Semibold", 15));
             lb.setTextAlignment(TextAlignment.JUSTIFY);
             lb.setWrapText(true);
-//            BorderPane borderTop= new BorderPane();
-//            borderTop.
             miborderpane.setCenter(lb);
         });
         menuItemSalir.setOnAction((event) -> {
             new MenuDeConsola().cerrarSesion();
             menuProcesos = new Menu("Procesos y consultas");
             primaryStage.setScene(escenaInicial());
-            //Juan, ponga el chat. T
-
         });
     }
 
@@ -234,6 +234,10 @@ public class BodyArt extends Application {
         launch(args);
     }
 
+    /*
+    * Este metodo retorna la escena inicial(login) de la aplicación.
+    * Autores: Juan Camilo Hoyos, Jean Carlo Herrera, Santiago López Gallego, Juan Camilo Muñoz
+     */
     private Scene escenaInicial() {
         miborderpane = new BorderPane();
         miborderpane.setBorder(new Border(new BorderStroke(Color.BLACK,
@@ -347,11 +351,6 @@ public class BodyArt extends Application {
         imgv2.setFitHeight(90);
         BorderPane imgvPane = new BorderPane();
         imgvPane.setCenter(imgv2);
-//            HBox hbx = new HBox();
-//            hbx.getChildren().add(imgv);
-//            StackPane stp = new StackPane();
-//            stp.getChildren().addAll(new Label("Nombre: "), new Label("Edad: "), new Label("Genero: "));
-//            hbx.getChildren().add(stp);
         miborderpane3_2.setTop(imgvPane);
         Label lb = new Label("Mi nombre es Juan Camilo Muñoz"
                 + " soy estudiante de tercer semestre de "
@@ -366,7 +365,11 @@ public class BodyArt extends Application {
 
         return new Scene(miborderpane, 800, 600);
     }
-
+    
+    /*
+    * Este metodo retorna la escena del usuario de la aplicación.
+    * Autores: Juan Camilo Hoyos, Jean Carlo Herrera, Santiago López Gallego, Juan Camilo Muñoz
+     */
     public Scene escenaUsuario() {
         BorderPane root = new BorderPane();
 
@@ -384,7 +387,6 @@ public class BodyArt extends Application {
         centro = new BorderPane();
 
         GridPane root2 = new GridPane();
-        //archivobtn = new Button("Archivo");
 
         menuArchivo = new Menu("Archivo");
         menuItemUsuario = new MenuItem("Usuario");
@@ -425,20 +427,20 @@ public class BodyArt extends Application {
                     }
                     menuProcesos.getItems().add(metodo);
                 }
-            } else{
+            } else {
                 for (String opcionDeMenu : listaMenu) {
                     MenuItem metodo = new MenuItem(opcionDeMenu);
                     if (opcionDeMenu.equals("ConsultarTodosLosPermisos")) {
                         metodo.setOnAction(new HandlerConsultarTodosLosPermisos());
-                    }else if (opcionDeMenu.equals("RegistrarUsuario")) {
+                    } else if (opcionDeMenu.equals("RegistrarUsuario")) {
                         metodo.setOnAction(new HandlerRegistrarUsuario());
-                    }else if (opcionDeMenu.equals("EliminarUsuario")) {
+                    } else if (opcionDeMenu.equals("EliminarUsuario")) {
                         metodo.setOnAction(new HandlerEliminarUsuario());
-                    }else if (opcionDeMenu.equals("ConsultarPermisos")) {
+                    } else if (opcionDeMenu.equals("ConsultarPermisos")) {
                         metodo.setOnAction(new HandlerConsultarPermisos());
-                    }else if (opcionDeMenu.equals("AgregarPermisos")) {
+                    } else if (opcionDeMenu.equals("AgregarPermisos")) {
                         metodo.setOnAction(new HandlerAgregarPermisos());
-                    }else if (opcionDeMenu.equals("EliminarPermisos")) {
+                    } else if (opcionDeMenu.equals("EliminarPermisos")) {
                         metodo.setOnAction(new HandlerEliminarPermisos());
                     }
                     menuProcesos.getItems().add(metodo);
@@ -558,7 +560,10 @@ public class BodyArt extends Application {
         return new Scene(root, 600, 500);
 
     }
-
+    /*
+    * Esta clase se encarga de escuchar a menuAyuda.
+    * Autores: Juan Camilo Hoyos, Jean Carlo Herrera, Santiago López Gallego, Juan Camilo Muñoz
+     */
     class HandlerAyuda implements EventHandler<ActionEvent> {
 
         @Override
@@ -573,7 +578,10 @@ public class BodyArt extends Application {
         }
     }
 
-//Slg
+    /*
+    * Esta clase se encarga de escuchar al menuItem ColsutarPesoIdeal.
+    * Autores: Juan Camilo Hoyos, Jean Carlo Herrera, Santiago López Gallego, Juan Camilo Muñoz
+     */
     class HandlerConsultarPesoIdeal implements EventHandler<ActionEvent> {
 
         @Override
@@ -583,6 +591,10 @@ public class BodyArt extends Application {
         }
     }
 
+        /*
+    * Esta clase se encarga de escuchar al menuItem ConsultarCaloriasQuemadas.
+    * Autores: Juan Camilo Hoyos, Jean Carlo Herrera, Santiago López Gallego, Juan Camilo Muñoz
+     */
     class HandlerConsultarCaloriasQuemadas implements EventHandler<ActionEvent> {
 
         @Override
@@ -592,7 +604,10 @@ public class BodyArt extends Application {
 
         }
     }
-
+/*
+    * Esta clase se encarga de escuchar al menuItem ConsultarRutina.
+    * Autores: Juan Camilo Hoyos, Jean Carlo Herrera, Santiago López Gallego, Juan Camilo Muñoz
+     */
     class HandlerConsultarRutina implements EventHandler<ActionEvent> {
 
         @Override
@@ -602,7 +617,10 @@ public class BodyArt extends Application {
 
         }
     }
-
+/*
+    * Esta clase se encarga de escuchar al menuItem ConsultarDieta.
+    * Autores: Juan Camilo Hoyos, Jean Carlo Herrera, Santiago López Gallego, Juan Camilo Muñoz
+     */
     class HandlerConsultarDieta implements EventHandler<ActionEvent> {
 
         @Override
@@ -612,7 +630,10 @@ public class BodyArt extends Application {
 
         }
     }
-
+/*
+    * Esta clase se encarga de escuchar al menuItem ConsultarInventario.
+    * Autores: Juan Camilo Hoyos, Jean Carlo Herrera, Santiago López Gallego, Juan Camilo Muñoz
+     */
     class HandlerConsultarInventario implements EventHandler<ActionEvent> {
 
         @Override
@@ -622,7 +643,10 @@ public class BodyArt extends Application {
             centro.setCenter(InventarioIdeal);
         }
     }
-
+/*
+    * Esta clase se encarga de escuchar al menuItem ConsultarTodosLosPermisos.
+    * Autores: Juan Camilo Hoyos, Jean Carlo Herrera, Santiago López Gallego, Juan Camilo Muñoz
+     */
     class HandlerConsultarTodosLosPermisos implements EventHandler<ActionEvent> {
 
         @Override
@@ -632,6 +656,10 @@ public class BodyArt extends Application {
             centro.setCenter(todosLosPermisos);
         }
     }
+/*
+    * Esta clase se encarga de escuchar al menuItem RegistrarUsuario.
+    * Autores: Juan Camilo Hoyos, Jean Carlo Herrera, Santiago López Gallego, Juan Camilo Muñoz
+     */
     class HandlerRegistrarUsuario implements EventHandler<ActionEvent> {
 
         @Override
@@ -641,6 +669,10 @@ public class BodyArt extends Application {
             centro.setCenter(registrarUsuario);
         }
     }
+/*
+    * Esta clase se encarga de escuchar al menuItem EliminarUsuario.
+    * Autores: Juan Camilo Hoyos, Jean Carlo Herrera, Santiago López Gallego, Juan Camilo Muñoz
+     */
     class HandlerEliminarUsuario implements EventHandler<ActionEvent> {
 
         @Override
@@ -650,6 +682,10 @@ public class BodyArt extends Application {
             centro.setCenter(eliminarUsuario);
         }
     }
+/*
+    * Esta clase se encarga de escuchar al menuItem ConsultarPermisos.
+    * Autores: Juan Camilo Hoyos, Jean Carlo Herrera, Santiago López Gallego, Juan Camilo Muñoz
+     */
     class HandlerConsultarPermisos implements EventHandler<ActionEvent> {
 
         @Override
@@ -659,6 +695,10 @@ public class BodyArt extends Application {
             centro.setCenter(consultarPermisos);
         }
     }
+/*
+    * Esta clase se encarga de escuchar al menuItem AgregarPermisos.
+    * Autores: Juan Camilo Hoyos, Jean Carlo Herrera, Santiago López Gallego, Juan Camilo Muñoz
+     */
     class HandlerAgregarPermisos implements EventHandler<ActionEvent> {
 
         @Override
@@ -668,6 +708,10 @@ public class BodyArt extends Application {
             centro.setCenter(agregarPermisos);
         }
     }
+/*
+    * Esta clase se encarga de escuchar al menuItem EliminarPermisos.
+    * Autores: Juan Camilo Hoyos, Jean Carlo Herrera, Santiago López Gallego, Juan Camilo Muñoz
+     */
     class HandlerEliminarPermisos implements EventHandler<ActionEvent> {
 
         @Override

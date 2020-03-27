@@ -1,7 +1,9 @@
 
 package windows.Instructor;
-
-import Excepciones.EstructuraNoValida;
+/*
+    * Este modulo se encarga de consultar una rutina para un cliente.
+    * Autores: Juan Camilo Hoyos, Jean Carlo Herrera, Santiago López Gallego, Juan Camilo Muñoz
+     */
 import Excepciones.UsuarioInvalido;
 import gestorAplicacion.paquete1.Cliente;
 import gestorAplicacion.paquete1.Instructor;
@@ -21,11 +23,14 @@ import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import uiMain.menuConsola.MenuDeConsola;
-import windows.BodyArt;
 
+
+/*
+    * Esta clase retorna un Pane con la información para calcular una rutina para un cliente.
+    * Autores: Juan Camilo Hoyos, Jean Carlo Herrera, Santiago López Gallego, Juan Camilo Muñoz
+     */
 public class ConsultarRutina extends FlowPane {
      private Label informacion;
     private TextField campo;
@@ -64,6 +69,7 @@ public class ConsultarRutina extends FlowPane {
             campo = new TextField();
             enviarbtn = new Button("Enviar");
             resultadota = new TextArea();
+            resultadota.setWrapText(true);
             calcularPesoIdeal.getChildren().addAll(informacion, campo, enviarbtn, resultadota);
             this.getChildren().addAll(nombreProcesolb, descripcionProcesolb, calcularPesoIdeal);
 
@@ -73,7 +79,11 @@ public class ConsultarRutina extends FlowPane {
         
         
     }
-   
+
+    /*
+    * Esta clase se encarga de consultar una rutina para un cliente.
+    * Autores: Juan Camilo Hoyos, Jean Carlo Herrera, Santiago López Gallego, Juan Camilo Muñoz
+     */
       class HandlerEnviarConsultarRutina implements EventHandler<ActionEvent> {
 
         @Override

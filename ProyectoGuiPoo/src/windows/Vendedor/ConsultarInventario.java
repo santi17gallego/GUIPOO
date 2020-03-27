@@ -1,10 +1,9 @@
 
 package windows.Vendedor;
-
-import Excepciones.EstructuraNoValida;
-import Excepciones.UsuarioInvalido;
-import gestorAplicacion.paquete1.Cliente;
-import gestorAplicacion.paquete1.Instructor;
+/*
+    * Este modulo se encarga de consultar el inventario que se tiene en la base de datos.
+    * Autores: Juan Camilo Hoyos, Jean Carlo Herrera, Santiago López Gallego, Juan Camilo Muñoz
+     */
 import gestorAplicacion.paquete1.Vendedor;
 import gestorAplicacion.paquete2.Suplemento;
 import java.util.ArrayList;
@@ -13,7 +12,6 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -24,11 +22,13 @@ import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import uiMain.menuConsola.MenuDeConsola;
-import windows.BodyArt;
 
+/*
+    * Esta clase retorna un Pane con la información para consultar el inventario.
+    * Autores: Juan Camilo Hoyos, Jean Carlo Herrera, Santiago López Gallego, Juan Camilo Muñoz
+     */
 public class ConsultarInventario extends FlowPane {
     private Label informacion;
     private TextField campo;
@@ -67,6 +67,7 @@ public class ConsultarInventario extends FlowPane {
             campo = new TextField();
             enviarbtn = new Button("Consultar inventario");
             resultadota = new TextArea();
+            resultadota.setWrapText(true);
             calcularPesoIdeal.getChildren().addAll(enviarbtn, resultadota);
             this.getChildren().addAll(nombreProcesolb, descripcionProcesolb, calcularPesoIdeal);
 
@@ -75,6 +76,11 @@ public class ConsultarInventario extends FlowPane {
             enviarbtn.setOnAction(new HandlerEnviarConsultarInventario());
 
     }
+   
+   /*
+    * Esta clase se encarga de consultar el inventario.
+    * Autores: Juan Camilo Hoyos, Jean Carlo Herrera, Santiago López Gallego, Juan Camilo Muñoz
+     */
      class HandlerEnviarConsultarInventario implements EventHandler<ActionEvent> {
 
         @Override

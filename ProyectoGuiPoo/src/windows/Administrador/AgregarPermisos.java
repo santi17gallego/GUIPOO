@@ -1,8 +1,9 @@
 package windows.Administrador;
-
-import Excepciones.EstructuraNoValida;
+/*
+    * Este modulo se encarga de agregar permisos a los usuarios.
+    * Autores: Juan Camilo Hoyos, Jean Carlo Herrera, Santiago López Gallego, Juan Camilo Muñoz
+     */
 import gestorAplicacion.paquete1.Administrador;
-import gestorAplicacion.paquete1.Cliente;
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -13,7 +14,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
@@ -24,10 +24,13 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import uiMain.menuConsola.MenuDeConsola;
-import windows.Instructor.ConsultarRutina;
 
+/*
+    * Esta clase retorna un Pane con la información de los permisos.
+    * Autores: Juan Camilo Hoyos, Jean Carlo Herrera, Santiago López Gallego, Juan Camilo Muñoz
+     */
 public class AgregarPermisos extends FlowPane {
-
+    
     private Label informacion;
     private TextField campo;
     private Button enviarbtn;
@@ -65,7 +68,6 @@ public class AgregarPermisos extends FlowPane {
         campo = new TextField();
         enviarbtn = new Button("Enviar");
         vbox = new VBox();
-//        vbox.getChildren().add(new Label());
         calcularPesoIdeal.getChildren().addAll(informacion, campo, enviarbtn, vbox);
         this.getChildren().addAll(nombreProcesolb, descripcionProcesolb, calcularPesoIdeal);
 
@@ -91,7 +93,10 @@ public class AgregarPermisos extends FlowPane {
         });
 
     }
-
+/*
+    * Esta clase se encarga de agregar permisos a los usuarios.
+    * Autores: Juan Camilo Hoyos, Jean Carlo Herrera, Santiago López Gallego, Juan Camilo Muñoz
+     */
     public class HandlerConsultarPermisos implements EventHandler<ActionEvent> {
 
         @Override

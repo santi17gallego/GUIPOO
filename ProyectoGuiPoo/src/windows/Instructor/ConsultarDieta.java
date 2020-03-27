@@ -1,7 +1,9 @@
 
 package windows.Instructor;
-
-import Excepciones.EstructuraNoValida;
+/*
+    * Este modulo se encarga de realizar una dieta para un cliente.
+    * Autores: Juan Camilo Hoyos, Jean Carlo Herrera, Santiago López Gallego, Juan Camilo Muñoz
+     */
 import Excepciones.UsuarioInvalido;
 import gestorAplicacion.paquete1.Cliente;
 import gestorAplicacion.paquete1.Instructor;
@@ -21,11 +23,14 @@ import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import uiMain.menuConsola.MenuDeConsola;
-import windows.BodyArt;
 
+
+/*
+    * Esta clase retorna un Pane con la información utilizada para consultar una dieta.
+    * Autores: Juan Camilo Hoyos, Jean Carlo Herrera, Santiago López Gallego, Juan Camilo Muñoz
+     */
 public class ConsultarDieta extends FlowPane {
     private Label informacion;
     private TextField campo;
@@ -67,6 +72,7 @@ public class ConsultarDieta extends FlowPane {
             campo2.setPromptText("Cantidad de ejercicio");
             enviarbtn = new Button("Enviar");
             resultadota = new TextArea();
+            resultadota.setWrapText(true);
             resultadota.setText("Ingrese cantidad de ejercicio (si es poco: 2 o menos días (digite 1)\n"
                     + "Si es ligero: 3 días (digite 2)\n"
                     + "Si es moderado: 3-5 días (digite 3)\n"
@@ -80,6 +86,11 @@ public class ConsultarDieta extends FlowPane {
             enviarbtn.setOnAction(new HandlerEnviarConsultarDieta());
         
     }
+    
+    /*
+    * Esta clase se encarga de realizar una dieta para un cliente.
+    * Autores: Juan Camilo Hoyos, Jean Carlo Herrera, Santiago López Gallego, Juan Camilo Muñoz
+     */
     class HandlerEnviarConsultarDieta implements EventHandler<ActionEvent> {
 
         @Override

@@ -1,5 +1,9 @@
 package windows.Cliente;
 
+/*
+    * Este modulo se encarga de consultar el peso ideal de los clientes.
+    * Autores: Juan Camilo Hoyos, Jean Carlo Herrera, Santiago López Gallego, Juan Camilo Muñoz
+     */
 import Excepciones.EstructuraNoValida;
 import gestorAplicacion.paquete1.Cliente;
 import javafx.event.ActionEvent;
@@ -18,9 +22,12 @@ import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
+/*
+    * Esta clase retorna un Pane con la información para consultar el peso ideal de los clientes.
+    * Autores: Juan Camilo Hoyos, Jean Carlo Herrera, Santiago López Gallego, Juan Camilo Muñoz
+     */
 public class ConsultarPesoIdeal extends FlowPane {
     
     private Label informacion;
@@ -58,11 +65,17 @@ public class ConsultarPesoIdeal extends FlowPane {
         enviarbtn = new Button("Enviar");
         enviarParametrobtn = new Button("Calcular peso ideal");
         resultadota = new TextArea();
+        resultadota.setWrapText(true);
         calcularPesoIdeal.getChildren().addAll(informacion, campo, enviarbtn, resultadota);
         this.getChildren().addAll(nombreProcesolb, descripcionProcesolb, calcularPesoIdeal);
 
         enviarbtn.setOnAction(new HandlerEnviarPeso());
     }
+    
+    /*
+    * Esta clase se encarga de consultar el peso ideal de los clientes.
+    * Autores: Juan Camilo Hoyos, Jean Carlo Herrera, Santiago López Gallego, Juan Camilo Muñoz
+     */
     public class HandlerEnviarPeso implements EventHandler<ActionEvent> {
 
         @Override

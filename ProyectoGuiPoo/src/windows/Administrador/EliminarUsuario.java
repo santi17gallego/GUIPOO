@@ -1,10 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package windows.Administrador;
-
+/*
+    * Este modulo se encarga de eliminar usuarios.
+    * Autores: Juan Camilo Hoyos, Jean Carlo Herrera, Santiago López Gallego, Juan Camilo Muñoz
+     */
 import Excepciones.UsuarioInvalido;
 import gestorAplicacion.paquete1.Administrador;
 import javafx.event.ActionEvent;
@@ -26,10 +24,10 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 import uiMain.menuConsola.MenuDeConsola;
 
-/**
- *
- * @author santi
- */
+/*
+    * Esta clase retorna un Pane con la información para eliminar usuarios.
+    * Autores: Juan Camilo Hoyos, Jean Carlo Herrera, Santiago López Gallego, Juan Camilo Muñoz
+     */
 public class EliminarUsuario extends FlowPane {
 
     private Label informacion;
@@ -68,13 +66,17 @@ public class EliminarUsuario extends FlowPane {
         campo.setPromptText("Cédula del cliente");
         enviarbtn = new Button("Enviar");
         resultadota = new TextArea();
+        resultadota.setWrapText(true);
         eliminarUsuario.getChildren().addAll(campo, enviarbtn, resultadota);
         this.getChildren().addAll(nombreProcesolb, descripcionProcesolb, eliminarUsuario);
 
         enviarbtn.setOnAction(new HandlerEnviarConsultarDieta());
 
     }
-
+/*
+    * Esta clase se encarga de eliminar usuarios.
+    * Autores: Juan Camilo Hoyos, Jean Carlo Herrera, Santiago López Gallego, Juan Camilo Muñoz
+     */
     class HandlerEnviarConsultarDieta implements EventHandler<ActionEvent> {
 
         @Override

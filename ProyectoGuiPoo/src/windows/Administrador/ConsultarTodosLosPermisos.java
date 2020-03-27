@@ -1,5 +1,9 @@
 package windows.Administrador;
 
+/*
+    * Este modulo se encarga de consultar todos los permisos de los usuarios.
+    * Autores: Juan Camilo Hoyos, Jean Carlo Herrera, Santiago López Gallego, Juan Camilo Muñoz
+     */
 import gestorAplicacion.paquete1.Administrador;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -17,7 +21,10 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 import uiMain.menuConsola.MenuDeConsola;
-
+/*
+    * Esta clase retorna un Pane con la información de los permisos.
+    * Autores: Juan Camilo Hoyos, Jean Carlo Herrera, Santiago López Gallego, Juan Camilo Muñoz
+     */
 public class ConsultarTodosLosPermisos extends FlowPane {
 
     private Button enviarbtn;
@@ -50,12 +57,16 @@ public class ConsultarTodosLosPermisos extends FlowPane {
         descripcionProcesolb.setAlignment(Pos.CENTER);
         enviarbtn = new Button("Enviar");
         resultadota = new TextArea();
+        resultadota.setWrapText(true);
         todosLosPermisos.getChildren().addAll(enviarbtn, resultadota);
         this.getChildren().addAll(nombreProcesolb, descripcionProcesolb, todosLosPermisos);
 
         enviarbtn.setOnAction(new HandlerConsultarTodosLosPermisos());
     }
-
+/*
+    * Esta clase se encarga de retornar todos los permisos de los usuarios.
+    * Autores: Juan Camilo Hoyos, Jean Carlo Herrera, Santiago López Gallego, Juan Camilo Muñoz
+     */
     public class HandlerConsultarTodosLosPermisos implements EventHandler<ActionEvent> {
 
         @Override

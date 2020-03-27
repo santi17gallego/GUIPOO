@@ -1,5 +1,8 @@
 package windows.Administrador;
-
+/*
+    * Este modulo se encarga de registrar usuarios.
+    * Autores: Juan Camilo Hoyos, Jean Carlo Herrera, Santiago López Gallego, Juan Camilo Muñoz
+     */
 import Excepciones.CampoVacio;
 import Excepciones.CaracterInvalido;
 import gestorAplicacion.paquete1.Administrador;
@@ -24,7 +27,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import uiMain.menuConsola.MenuDeConsola;
 import windows.FieldPanel;
-
+/*
+    * Esta clase retorna un Pane con la información para realizar el registro de un usuario.
+    * Autores: Juan Camilo Hoyos, Jean Carlo Herrera, Santiago López Gallego, Juan Camilo Muñoz
+     */
 public class RegistrarUsuario extends FlowPane {
 
     public RegistrarUsuario() {
@@ -107,6 +113,10 @@ public class RegistrarUsuario extends FlowPane {
                 migrid.setBorder(new Border(new BorderStroke(Color.BLACK,
                         BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
                 migrid.setPadding(new Insets(10, 10, 10, 10));
+                /*
+    * Este evento se encarga de registrar usuarios.
+    * Autores: Juan Camilo Hoyos, Jean Carlo Herrera, Santiago López Gallego, Juan Camilo Muñoz
+     */
                 registrarseEnviar.setOnAction((event1) -> {
                     ArrayList<TextField> textFieldList = fieldPanel.getTextFieldList();
                     String camposVacios = "";
