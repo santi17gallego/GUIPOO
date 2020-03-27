@@ -132,9 +132,9 @@ public class RegistrarUsuario extends FlowPane {
                         }
                         Usuario usuario=null;
                         if (opcion.equals("Instructor")) {
-                            usuario = new Instructor(textFieldList.get(0).getText(), textFieldList.get(1).getText(), textFieldList.get(2).getText());
+                            usuario = new Instructor(textFieldList.get(1).getText(),textFieldList.get(0).getText(), textFieldList.get(2).getText());
                         }else if(opcion.equals("Vendedor")){
-                            usuario = new Vendedor(textFieldList.get(0).getText(), textFieldList.get(1).getText(), textFieldList.get(2).getText());
+                            usuario = new Vendedor(textFieldList.get(1).getText(),textFieldList.get(0).getText(), textFieldList.get(2).getText());
                         }
 
                         if (!admin.registrarUsuario(usuario)) {
