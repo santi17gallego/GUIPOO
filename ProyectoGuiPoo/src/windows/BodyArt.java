@@ -572,8 +572,8 @@ public class BodyArt extends Application {
             alert.setContentText("\nAutores del proyecto: "
                     + "\nJuan Camilo Muñoz López"
                     + "\nJuan Camilo Hoyos Peña"
-                    + "\nYanka LDS Herrera Delgado"
-                    + "\nSantiago López Gallego\"");
+                    + "\nJean Carlo Herrera Delgado"
+                    + "\nSantiago López Gallego\");
             alert.show();
         }
     }
